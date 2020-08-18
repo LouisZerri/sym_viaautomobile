@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <img style="right: 0; padding-bottom: 170px; opacity: 50%; position: fixed;" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
+    <div class="container">
+        <div id="creation_compte" class="card">
+            <center>
+            </br>
+                <img src="{{ asset('assets/images/logo_couleur.svg') }}" alt="logo" width="300" height="75">
+                </br>
+            </center>
+            <div class="card-body">
+                <center><h5><b>CRÉATION DE COMPTE</b></h5></center></br>
+                {% include 'security/layout/form.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+    <div id="fin">
+        <p>Powered by Pepperbay</p>
+    </div>
+
+{% endblock %}

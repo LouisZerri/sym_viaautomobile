@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% include 'layout/menu.html.twig' %}
+
+    <style>
+        #screen_challenge
+        {
+            position: absolute;
+            bottom:0;
+            left:0;
+            top: 0;
+            right:0;
+            margin: auto;
+            margin-left: 100px;
+            padding-top: 20px;
+            zoom: 125%;
+
+        }
+    </style>
+
+    <div id="screen_challenge" class="container mt-2" style="padding-left: 200px;">
+        <h3 style="color: #531B51;"><b>LES CHALLENGES EN COURS</b></h3>
+        {% if challenge_en_cours is null %}
+            <div class="alert alert-info mt-3" role="alert">
+                <i class="fa fa-info"></i>&nbsp;&nbsp;Aucun challenge en cours pour le moment
+            </div>
+        {% else %}
+            <div class="row mt-3">
+                <div class="col">
+                    <img style="border-radius: 10px;" src="{{ vich_uploader_asset(challenge_en_cours, 'imageFile') }}" width="225" height="150">
+                </div>
+                <div class="col">
+                    <h5 style="color: #531B51;"><b>{{ challenge_en_cours.titre }}</b></h5>
+                    <span style="color: #808080; font-size: 12px;">Période : {{ challenge_en_cours.periode }}</span></br>
+                    <span style="color: black; font-size: 15px;">{{ challenge_en_cours.description }}</span></br>
+                    <span style="color: black; font-size: 15px;">Classement en cours :</span>
+                    <div class="row">
+                        <div class="col">
+                            <span style="color: black; font-size: 12px;">🥇 {{ first_mandat.prenom }} {{ first_mandat.nom}} ({{ first_mandat.nombre}} mandats)</span></br>
+                            <span style="color: black; font-size: 12px;">🥈 {{ second_mandat.prenom }} {{ second_mandat.nom}} ({{ second_mandat.nombre}} mandats)</span></br>
+                            <span style="color: black; font-size: 12px;">🥉 {{ third_mandat.prenom }} {{ third_mandat.nom }} ({{ third_mandat.nombre }} mandats)</span>
+                        </div>
+                        <div class="col">
+                            <span style="color: black; font-size: 12px;">🥇 {{ first_vente.prenom }} {{ first_vente.nom }} ({{ first_vente.vente }} ventes)</span></br>
+                            <span style="color: black; font-size: 12px;">🥈 {{ second_vente.prenom }} {{ second_vente.nom }} ({{ second_vente.vente }} ventes)</span></br>
+                            <span style="color: black; font-size: 12px;">🥉 {{ third_vente.prenom }} {{ third_vente.nom }} ({{ third_vente.vente }} ventes)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        </br></br>
+        <h3 style="color: #531B51;"><b>LES CHALLENGES PASSÉS</b></h3>
+        {% for challenge in challenges_passes %}
+            <div class="row mt-3">
+                <div class="col">
+                    <img style="border-radius: 10px;" src="{{ vich_uploader_asset(challenge, 'imageFile')}}" width="225" height="150">
+                </div>
+                <div class="col mt-3">
+                    <h5 style="color: #531B51;"><b>{{ challenge.titre }}</b></h5>
+                    <span style="color: #808080; font-size: 12px;">Période : {{ challenge.periode }}</span></br>
+                    <span style="color: black; font-size: 15px;">{{ challenge.description }}</br></span>
+                    <span style="color: black; font-size: 15px;"><b>Vainqueur :</b> {{ challenge.vainqueur }}</span>
+                </div>
+            </div></br>
+        {% endfor %}
+        </br>
+
+    </div>
+
+{% endblock %}

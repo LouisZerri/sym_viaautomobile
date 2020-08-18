@@ -1,0 +1,298 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% include 'layout/menu.html.twig' %}
+
+    <style>
+        #select
+        {
+            position: absolute;
+            bottom:0;
+            left:0;
+            top: 0;
+            right:0;
+            z-index: 0;
+            margin: auto;
+            margin-left: 350px;
+            margin-top: 150px;
+        }
+
+        h3, h5
+        {
+            position: absolute;
+            bottom:0;
+            left:0;
+            top: 0;
+            right:0;
+            margin: auto;
+            margin-left: 300px;
+            padding-top: 50px;
+        }
+
+        .form-control
+        {
+            font-size: 15px;
+        }
+
+        table
+        {
+            position: absolute;
+            width: 100%;
+            height: 25%;
+            left: 35%;
+            margin: auto;
+            zoom: 125%;
+            padding-top: 200px;
+            margin-right: 50px;
+            display: none;
+        }
+
+        #ma_table_Ventes
+        {
+            position: absolute;
+            height: 25%;
+            left: 25%;
+            margin: auto;
+            zoom: 125%;
+            padding-top: 200px;
+            margin-right: 100px;
+            width: 70%;
+        }
+
+        #ma_table_Mandats
+        {
+            width: 30%;
+        }
+
+    </style>
+
+    <div class="container">
+        <h3 style="color: #531B51;"><b>AFFICHER L'HISTORIQUE</b></h3>
+        <h5 style="color: #531B51; padding-top: 100px;">Choissisez vos filtres :</h5>
+        <div id="select">
+            <form action="" method="POST">
+                <div class="form-group">
+                    <select style="width: 50%; background-color: #531B51; color: white;" class="form-control" name="monselect">
+                        <option selected="selected"><span>Type d'action</span></option>
+                        <option>Ventes</option>
+                        <option>Mandats</option>
+                    </select>
+                </div>
+            </form>
+            <form id="myform" action="{{ path('filter') }}" method="POST">
+                <div class="form-group">
+                    <select name="mois" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
+                        <option id="periode" selected="selected"><span>Période</span></option>
+                        <option id="01">Janvier</option>
+                        <option id="02">Février</option>
+                        <option id="03">Mars</option>
+                        <option id="04">Avril</option>
+                        <option id="05">Mai</option>
+                        <option id="06">Juin</option>
+                        <option id="07">Juillet</option>
+                        <option id="08">Août</option>
+                        <option id="09">Septembre</option>
+                        <option id="10">Octobre</option>
+                        <option id="11">Novembre</option>
+                        <option id="12">Décembre</option>
+                    </select>
+                </div>
+            </form>
+    </div>
+
+        {% if mandats is not empty and ventes is not empty %}
+
+            <table id="ma_table_Ventes" class="table table-striped ml-5 mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Date de vente</th>
+                        <th scope="col">Immatriculation</th>
+                        <th scope="col">Livraisons</th>
+                        <th scope="col">FMS</th>
+                        <th scope="col">Garanties</th>
+                        <th scope="col">Financements</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vente in ventes %}
+                        <tr id="date" align="center">
+                            <td id="mydate" align="center">{{ vente.dateVente | date('d/m/Y') }}</td>
+                            <td align="center">{{ vente.immatriculation }}</td>
+                            <td align="center">{{ vente.livree }}</td>
+                            <td align="center">{{ vente.fraisMER }}</td>
+                            <td align="center">{{ vente.garantie }}</td>
+                            <td align="center">{{ vente.financement }}</td>
+                            {% if 'now'|date('m') != vente.dateVente | date('m') %}
+                                <td align="center"><a style="color: black;"><i class="fa fa-times"/></a></td>
+                            {% else %}
+                                <td align="center">
+                                    <a class="btn btn-link js-delete" href="{{ path('historique_vente', {id: vente.id}) }}" style="color: black; z-index: 200;">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <table id="ma_table_Mandats" class="table table-striped ml-5 mt-5">
+                <thead>
+                <th align="center" scope="col">Date</th>
+                <th align="center" scope="col">Nombre de mandats</th>
+                <th align="center" scope="col">Actions</th>
+                </thead>
+                <tbody>
+                {% for mandat in mandats %}
+                    <tr id="date" align="center">
+                        <td id="mydate" align="center">{{ mandat.dateMandat | date('d/m/Y') }}</td>
+                        <td align="center">{{ mandat.nombre }}</td>
+                        {% if 'now'|date('m') != mandat.dateMandat | date('m') %}
+                            <td align="center"><a style="color: black;"><i class="fa fa-times"/></a></td>
+                        {% else %}
+                            <td align="center">
+                                <a class="btn btn-link js-delete" href="{{ path('historique_mandat', {id: mandat.id}) }}" style="color: black; z-index: 200;">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+
+
+            // Je sélectionne le select et quand la valeur change on fait une action
+            $('select[name="monselect"]').change(function () {
+                // Je créer l'id du div qui va être affiché
+                var id = "ma_table_" + $(this).val();
+                // Je cache toutes les divs grâce à une classe qui va sélectionner le tout
+                $('table').hide();
+                // Et j'affiche seulement le Div que je souhaite
+                $('#' + id).show();
+
+            });
+
+
+
+            $('a.js-delete').click(function(e){
+
+                e.preventDefault();
+
+                var $a = $(this)
+
+                var url = $a.attr('href')
+
+                jQuery.ajax({
+                    url : url,
+                    type : 'GET',
+                    success: function()
+                    {
+                        $a.parents('tr').fadeOut(500);
+                    },
+                    error: function(jqxhr)
+                    {
+                        alert(jqxhr.responseText);
+                    }
+                });
+            });
+
+            $('select[name="mois"]').change(function(e) {
+
+                e.preventDefault();
+
+                var mois = $("select[name='mois'] option:selected").attr("id");
+
+                var select = $("select[name='monselect']").val();
+
+                if(select === "Ventes")
+                {
+                    jQuery.ajax({
+                        url: '{{ path('filter') }}',
+                        type: 'POST',
+                        data: {
+                            mois: mois
+                        },
+                        success: function (data) {
+                            var date = [];
+                            data.ventes.forEach((value) => {
+                                date.push(value.date_vente.substring(0, 10).split("-").reverse().join("-").replace(/-/g,"/"));
+                            })
+
+                            $('#ma_table_Ventes tbody').each(function() {
+                                $(this).find('#date').each (function() {
+                                    $(this).find('#mydate').each (function() {
+                                        if (!date.includes($(this).html())) {
+
+                                            $(this).parents('tr:first').fadeOut(500);
+                                        }
+                                    });
+
+                                });
+                            });
+
+                        },
+                        error: function (jqxhr) {
+                            alert(jqxhr.responseText);
+                        }
+                    });
+
+                }else if(select === "Mandats")
+                {
+                    jQuery.ajax({
+                        url: '{{ path('filter') }}',
+                        type: 'POST',
+                        data: {
+                            mois: mois
+                        },
+                        success: function (data) {
+                            var date = [];
+                            data.mandats.forEach((value) => {
+                                date.push(value.date_mandat.substring(0, 10).split("-").reverse().join("-").replace(/-/g,"/"));
+                            })
+
+                            $('#ma_table_Mandats tbody').each(function() {
+                                $(this).find('#date').each (function() {
+                                    $(this).find('#mydate').each (function() {
+                                        if (!date.includes($(this).html())) {
+
+                                            $(this).parents('tr:first').fadeOut(500);
+                                        }
+                                    });
+
+                                });
+                            });
+
+                        },
+                        error: function (jqxhr) {
+                            alert(jqxhr.responseText);
+                        }
+                    });
+                }
+
+
+
+            });
+
+
+
+
+
+
+
+
+        });
+
+    </script>
+
+{% endblock %}

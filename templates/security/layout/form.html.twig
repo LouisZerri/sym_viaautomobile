@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+{{ form_row(form.nom, {'attr': {'placeholder': 'Nom'}}) }}
+{{ form_row(form.prenom, {'attr': {'placeholder': 'Prénom'}}) }}
+{{ form_row(form.date_naissance, {'attr': {'placeholder': 'Date de naissance (JJ/MM/AAAA)'}}) }}
+{{ form_row(form.portable, {'attr': {'placeholder': 'Téléphone portable (+33)'}}) }}
+{{ form_row(form.enseigne, {'attr': {'placeholder': 'Enseigne'}}) }}
+{{ form_row(form.site_rattachement, {'attr': {'placeholder': 'Site de rattachement'}}) }}
+{{ form_row(form.email, {'attr': {'placeholder': 'Adresse email'}}) }}
+{{ form_row(form.password, {'attr': {'placeholder': 'Choissisez un mot de passe'}}) }}
+{{ form_row(form.confirm_password, {'attr': {'placeholder': 'Confirmez votre mot de passe'}}) }}
+<center>
+    <button id="boutons" style="background-color: #9D1458;" type="submit" class="btn btn-light"><span style="color: white;">Inscription</span></button>
+</center>
+{{ form_end(form) }}

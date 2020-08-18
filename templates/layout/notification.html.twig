@@ -1,0 +1,40 @@
+{% if app.request.attributes.get('_route') == 'dashboard' %}
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            {% if message == 'Vente ajoutée avec succès' %}
+                <script> toastr.success('Vente ajoutéé avec succès'); </script>
+            {% else %}
+                <script> toastr.success('Mandat ajouté avec succès'); </script>
+            {% endif %}
+        {% endfor %}
+
+        {% if not form_mandat.vars.valid %}
+            {% for child in form_mandat.children %}
+                {%for error in child.vars.errors%}
+                    <script> toastr.error('Des données sont incorrectes'); </script>
+                {%endfor%}
+            {%endfor%}
+        {%endif%}
+
+        {% if not form_vente.vars.valid %}
+            {% for child in form_vente.children %}
+                {%for error in child.vars.errors%}
+                    <script> toastr.error('Des données sont incorrectes'); </script>
+                {%endfor%}
+            {%endfor%}
+        {%endif%}
+    </div>
+{% elseif app.request.attributes.get('_route') == 'admin-challenges' %}
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            {% if message == 'Challenge crée avec succès' %}
+                <script> toastr.success('Challenge crée avec succès'); </script>
+            {% elseif message == 'Challenge modifié avec succès' %}
+                <script> toastr.success('Challenge modifié avec succès'); </script>
+            {% elseif message == 'Challenge supprimé avec succès' %}
+                <script> toastr.success('Challenge supprimé avec succès'); </script>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+

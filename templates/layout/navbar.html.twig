@@ -1,0 +1,87 @@
+{% block body %}
+
+    <style>
+        html, body
+        {
+            font-family: 'Montserrat', serif;
+            background: white;
+        }
+
+        li
+        {
+            list-style-type: none;
+        }
+
+        a
+        {
+            text-decoration: none;
+        }
+
+        form
+        {
+            width: 50%;
+            padding-bottom: 50px;
+        }
+
+        #ma_table_Sites
+        {
+            display: none;
+        }
+
+        #ma_table_Consolidations
+        {
+            display: none;
+        }
+
+        .form-error-message
+        {
+            color: red;
+        }
+
+        .card
+        {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 15px;
+            width: 1000px;
+        }
+
+        .card-body
+        {
+            width: 1000px;
+        }
+
+    </style>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ path('dashboard') }}">
+            <img src="{{ asset('/assets/images/favicon.ico') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+            Via Automobile
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('admin') }}">Accueil<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('admin-challenges') }}">Challenges</a>
+                </li>
+            </ul>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link"><i class="fa fa-user"></i>&nbsp;{{ app.user.prenom }} {{ app.user.nom }}&nbsp;&nbsp;&nbsp;&nbsp;| <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{path('security_logout')}}" class="nav-link" style="text-decoration: none;">Se deconnecter</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+{% endblock %}

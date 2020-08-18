@@ -1,0 +1,249 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% include 'layout/navbar.html.twig' %}
+
+    <div style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
+        <h3 style="color: #531B51;"><b>STATISTIQUE DE SALES CHALLENGE</b></h3>
+        <div class="row">
+            <div class="col">
+                <form action="" method="POST">
+                    <div class="form-group mt-5">
+                        <p>Filtrer les recherches par :</p>
+                        <select class="form-control" name="filtre">
+                            <option selected="selected">Filtre</option>
+                            <option>Collaborateurs</option>
+                            <option>Sites</option>
+                            <option>Consolidations</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div style="padding-top: 85px;" class="col">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <select name="mois" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
+                            <option id="periode" selected="selected"><span>Mois</span></option>
+                            <option id="01">Janvier</option>
+                            <option id="02">Février</option>
+                            <option id="03">Mars</option>
+                            <option id="04">Avril</option>
+                            <option id="05">Mai</option>
+                            <option id="06">Juin</option>
+                            <option id="07">Juillet</option>
+                            <option id="08">Août</option>
+                            <option id="09">Septembre</option>
+                            <option id="10">Octobre</option>
+                            <option id="11">Novembre</option>
+                            <option id="12">Décembre</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div style="padding-top: 85px;" class="col">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <select name="trimestre" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
+                            <option id="periode" selected="selected"><span>Trimestre</span></option>
+                            <option id="1">Trimestre 1</option>
+                            <option id="2">Trimestre 2</option>
+                            <option id="3">Trimestre 3</option>
+                            <option id="4">Trimestre 4</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="mytables" id="ma_table_Collaborateurs">
+            <div class="row">
+                <div class="col-md-6">
+                    <table id="filtre_mois" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center;" scope="col">Collaborateurs</th>
+                            <th style="text-align: center;" scope="col">Site de rattachement</th>
+                            <th style="text-align: center;" scope="col">Nombre de véhicules vendus</th>
+                            <th style="text-align: center;" scope="col">Nombre de livraison</th>
+                            <th style="text-align: center;" scope="col">Nombre de financement</th>
+                            <th style="text-align: center;" scope="col">Nombre de garantie</th>
+                            <th style="text-align: center;" scope="col">Nombre de frais de mise en route</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set total_vente = 0 %}
+                        {% set total_livraison = 0 %}
+                        {% set total_financement = 0 %}
+                        {% set total_garantie = 0 %}
+                        {% set total_fme = 0 %}
+                        {% for result in result_collaborateur %}
+
+                            {% set total_vente = total_vente + result.vente %}
+                            {% set total_livraison = total_livraison + result.livree %}
+                            {% set total_financement = total_financement + result.financement %}
+                            {% set total_garantie = total_garantie + result.garantie %}
+                            {% set total_fme = total_fme + result.fraisMER %}
+                            <tr>
+                                <td align="center">{{ result.prenom }} {{ result.nom }}</td>
+                                <td align="center">{{ result.site_rattachement }}</td>
+                                <td align="center">{{ result.vente }}</td>
+                                <td align="center">{{ result.livree }}</td>
+                                <td align="center">{{ result.financement }}</td>
+                                <td align="center">{{ result.garantie }}</td>
+                                <td align="center">{{ result.fraisMER }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td align="center"><b>TOTAL</b></td>
+                            <td align="center"></td>
+                            <td align="center"><b>{{ total_vente }}</b></td>
+                            <td align="center"><b>{{ total_livraison }}</b></td>
+                            <td align="center"><b>{{ total_financement }}</b></td>
+                            <td align="center"><b>{{ total_garantie }}</b></td>
+                            <td align="center"><b>{{ total_fme }}</b></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div style="text-align: right;">
+                        <a id="lien" href="#" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <table id="filtre_mois_mandat" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center;" scope="col">Collaborateurs</th>
+                            <th style="text-align: center;" scope="col">Site de rattachement</th>
+                            <th style="text-align: center;" scope="col">Nombre de mandats</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set total = 0 %}
+                        {% for mandat in mandats %}
+                            {% set total = total + mandat.nombre %}
+                            <tr>
+                                <td align="center">{{ mandat.prenom }} {{ mandat.nom }}</td>
+                                <td align="center">{{ mandat.site_rattachement }}</td>
+                                <td align="center">{{ mandat.nombre }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td align="center"><b>TOTAL</b></td>
+                            <td align="center"></td>
+                            <td align="center"><b>{{ total }}</b></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div style="text-align: right;">
+                        <a id="lien_mandat" href="#" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mytables" id="ma_table_Sites">
+            <div class="row">
+                <div class="col">
+                    <table  class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;" scope="col">Site de rattachement</th>
+                                <th style="text-align: center;" scope="col">Nombre de mandats</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in result_site_mandat %}
+                                <tr>
+                                    <td align="center">{{ result.site_rattachement }}</td>
+                                    <td align="center">{{ result.mandat }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;" scope="col">Site de rattachement</th>
+                                <th style="text-align: center;" scope="col">Nombre de vente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in result_site_vente %}
+                                <tr>
+                                    <td align="center">{{ result.site_rattachement }}</td>
+                                    <td align="center">{{ result.vente }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="mytables" id="ma_table_Consolidations">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;" scope="col">Collaborateurs</th>
+                        <th style="text-align: center;" scope="col">Email </th>
+                        <th style="text-align: center;" scope="col">Nombre de mandats</th>
+                        <th style="text-align: center;" scope="col">Nombre de véhicules vendus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in result_consolidation %}
+                        <tr>
+                            <td align="center">{{ result.prenom }} {{ result.nom }}</td>
+                            <td align="center">{{ result.email }}</td>
+                            <td align="center">{{ result.nombre }}</td>
+                            <td align="center">{{ result.vente }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            // Je sélectionne le select et quand la valeur change on fait une action
+            $('select[name="filtre"]').change(function () {
+
+                // Je créer l'id du div qui va être affiché
+                var id = "ma_table_" + $(this).val();
+                console.log(id)
+                // Je cache toutes les divs grâce à une classe qui va sélectionner le tout
+                $('.mytables').hide();
+
+                // Et j'affiche seulement le Div que je souhaite
+                $('#' + id).show();
+
+            });
+        });
+    </script>
+
+
+{% endblock %}

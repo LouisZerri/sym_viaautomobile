@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <img style="right: 0; padding-bottom: 170px; position: fixed;" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
+    <div class="container">
+
+        {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+                {{ error.messagekey | trans(error.messagedata, 'security') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+
+
+
+        <div id="login" class="card">
+            <center>
+                </br>
+                <img src="{{ asset('assets/images/logo_couleur.svg') }}" alt="logo" width="300" height="75">
+                </br>
+            </center>
+            <div class="card-body mt-2">
+                <form action="{{ path('security_login') }}" method="post">
+                    <div class="form-group">
+                        <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" placeholder="Saissisez votre adresse email" required>
+                    </div></br>
+                    <div class="form-group">
+                        <input type="password" id="password" name="_password" class="form-control" placeholder="Saissisez votre mot de passe" required>
+                    </div></br>
+                    <center><a style="text-decoration: underline;" href="#">Mot de passe oublié ?</a></center></br>
+                    <center>
+                        <button id="boutons" style="background-color: #9D1458;" type="submit" class="btn btn-outline-light mt-2"><span style="color: white;">connexion</span></button>
+                    </center>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="fin">
+        <p>Powered by Pepperbay</p>
+    </div>
+
+
+
+{% endblock %}

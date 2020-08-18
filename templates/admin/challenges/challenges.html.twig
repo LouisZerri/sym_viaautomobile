@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% include 'layout/navbar.html.twig' %}
+
+    <div class="container mt-4">
+        <h3 style="color: #531B51;"><b>GÉRER LES CHALLENGES</b></h3>
+
+        {% include 'layout/notification.html.twig' %}
+
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th>Titre du challenge</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for challenge in challenges %}
+                    <tr>
+                        <td style="font-size: 20px;"><b>{{ challenge.titre }}</b></td>
+                        <td>
+                            <a href="{{ path('admin-challenge-edit', {id : challenge.id}) }}" class="btn btn-secondary">Editer</a>
+                            <form method="POST" action="{{ path('admin-challenge-delete', {id: challenge.id }) }}" style="display: inline-block" onsubmit="return confirm('Etes-vous vraiment sûr ?')">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ challenge.id) }}" />
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <a href="{{ path('admin-challenge-new') }}" style="background-color: #754974; color: white;" class="btn btn-light">Créer une nouveau challenge</a>
+        </div>
+    </div>
+
+{% endblock %}

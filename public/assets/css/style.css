@@ -1,0 +1,349 @@
+/* Général */
+
+html, body
+{
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat';
+    background: url('../images/fond.png') no-repeat center fixed;
+    text-decoration: none;
+    list-style-type: none;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+#p1
+{
+    color: white;
+    font-size: 5em;
+    font-weight: thin;
+}
+
+#p2
+{
+    color: white;
+    font-size: 5em;
+    font-weight: 900;
+    font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+p
+{
+    color: white;
+}
+
+#fin
+{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    font-size: 12px;
+    padding-right: 20px;
+    color: white;
+}
+
+.index
+{
+    position: absolute;
+    width: 100%;
+    height: 25%;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    margin: auto;
+}
+
+a
+{
+    color: black;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: black;
+}
+
+#boutons
+{
+    border: 0;
+    border-radius: 24px;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+#inscription, #connexion
+{
+    background: transparent;
+    border-radius: 24px;
+    padding-right: 40px;
+    border-color: #fff;
+    padding-left: 40px;
+    margin-left: 20px;
+    color: white;
+}
+
+#inscription:hover, #connexion:hover
+{
+    background-color: white;
+    transition: 0.25s;
+    color: black;
+}
+
+/* Page de création de compte */
+
+.form-control
+{
+    margin-left: 20px;
+    width: 90%;
+    padding: 7px;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #531B51;
+    background: transparent;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #fff;
+    border-bottom: 1px solid #531B51;
+    outline: 0;
+    box-shadow: 0 0 0 0rem rgba(255,255,255);
+}
+
+.card
+{
+    position: absolute;
+    width: 35%;
+    height: 60%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 15px;
+}
+
+#creation_compte
+{
+    position: absolute;
+    width: 30%;
+    height: 750px;
+    padding-bottom: 40px;
+    top: 0;
+    font-size: 12px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 15px;
+}
+
+/* Login */
+
+#login
+{
+    position: absolute;
+    width: 25%;
+    height: 45%;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    margin: auto;
+    border-radius: 15px;
+}
+
+/* Page d'accueil */
+
+#card-accueil
+{
+    position: absolute;
+    width: 35%;
+    height: 40%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 15px;
+}
+
+/* Dashboard */
+
+.menu
+{
+    width: 300px;
+    height: 400px;
+    float: left;
+    position: fixed;
+    z-index: 10;
+
+}
+
+#colonne1
+{
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    bottom:0;
+    left:0;
+    top: 0;
+    right:0;
+    margin: auto;
+    margin-left: 100px;
+    margin-bottom: 175px;
+}
+
+#colonne2
+{
+    position: absolute;
+    width: 38%;
+    height: 59.9%;
+    bottom:0;
+    top: 0;
+    margin: auto;
+    margin-left: 665px;
+    margin-bottom: 180px;
+}
+
+.separation
+{
+
+    position: fixed;
+    margin-left: 270px;
+    height: 100%;
+    width: 1px;
+    background: grey;
+    top: 0;
+    bottom: 0;
+    opacity: 0.2;
+}
+
+.separation2
+{
+    clear: both;
+    position: absolute;
+    margin-left: 625px;
+    height: 450px;
+    width: 3px;
+    margin-top: 25px;
+    background:  #531B51;
+}
+
+li
+{
+    list-style-type: none;
+    position:relative;
+    z-index:10;
+}
+
+span
+{
+    color: white;
+}
+
+#change
+{
+    color: #531B51;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+#change:hover
+{
+    color: white;
+    transition:all 0.10s;
+    border:none;
+    padding: 10px 10px 10px 10px;
+    border-radius: 20px;
+    background: #754974;
+    position:relative;
+    z-index:10;
+}
+
+#semaine
+{
+    margin-left: 0px;
+    padding-top: 50px;
+    font-size: 30px;
+}
+
+#dont
+{
+    color: #A73C97;
+    font-size: 20px;
+}
+
+#screen
+{
+    bottom:0;
+    left:0;
+    top: 0;
+    right:0;
+    margin: auto;
+}
+
+tr, td
+{
+    color: #531B51;
+}
+
+/* Les popups */
+
+/*-----------------------------------------------*/
+
+#fade { /*--Masque opaque noir de fond--*/
+    display: none; /*--masqué par défaut--*/
+    background: #000;
+    position: fixed; left: 0; top: 0;
+    width: 100%; height: 100%;
+    opacity: .80;
+    z-index: 9999;
+}
+.popup_block{
+    display: none; /*--masqué par défaut--*/
+    background: #fff;
+    padding: 20px;
+    float: left;
+    font-size: 12px;
+    position: fixed;
+    top: 50%; left: 50%;
+    z-index: 99999;
+    /*--Les différentes définitions de Box Shadow en CSS3--*/
+    -webkit-box-shadow: 0px 0px 20px #000;
+    -moz-box-shadow: 0px 0px 20px #000;
+    box-shadow: 0px 0px 20px #000;
+    /*--Coins arrondis en CSS3--*/
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/*--Gérer la position fixed pour IE6--*/
+*html #fade {
+    position: absolute;
+}
+*html .popup_block {
+    position: absolute;
+}
+
+.bouton1
+{
+    width: 65px;
+    height: 65px;
+    background:#A73C97;
+    font:bold 50px Montserrat;
+    border-radius:50%;
+    border:none;
+    color:#fff;
+}
+
+
+
+
+
