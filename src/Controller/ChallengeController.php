@@ -5,9 +5,13 @@ namespace App\Controller;
 use App\Repository\ChallengeRepository;
 use App\Repository\MandatRepository;
 use App\Repository\VenteRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Access;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Access("has_role('ROLE_USER') or has_role('ROLE_ADMIN')")
+ */
 class ChallengeController extends AbstractController
 {
     /**
@@ -37,13 +41,6 @@ class ChallengeController extends AbstractController
      */
     public function index()
     {
-        $user = $this->getUser();
-
-        if($user == null)
-        {
-            return $this->redirectToRoute('home');
-        }
-
         $challengeEnCours = $this->challengeRepository
             ->findOneBy(['en_cours' => '1']);
 

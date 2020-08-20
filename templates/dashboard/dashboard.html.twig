@@ -111,28 +111,28 @@
             <div id="colonne2" class="col">
                 <center>
                     <h3 style="color: #531B51;"><b>NOMBRE DE VENTES</b></h3>
-                    <p style="font-size: 7em; color: #531B51;">{{ count_vente.vente }}</p>
+                    <p id="mesventes" style="font-size: 7em; color: #531B51;">{{ count_vente.vente }}</p>
                     <p style="font-size: 2em; color: #531B51;">Ventes</p>
                     <p id="dont">dont</p></br>
                     <div class="row pl-4">
                         <div class="col pl-2">
-                            <button class="bouton1">{{ count_livree.livree }}</button>
+                            <button id="bouton1" class="bouton1">{{ count_livree.livree }}</button>
                             <span style="color: black;">Livraisons</span>
                         </div>
                         <div class="col">
-                            <button class="bouton1">{{ count_fraisMER.fraisMER }}</button></br>
+                            <button id="bouton2" class="bouton1">{{ count_fraisMER.fraisMER }}</button></br>
                             <span style="color: black;">Frais de mise en service</span>
                         </div>
                         <div class="col pl-2">
-                            <button class="bouton1">{{ count_garantie.garantie }}</button>
+                            <button id="bouton3" class="bouton1">{{ count_garantie.garantie }}</button>
                             <span style="color: black;">Garanties</span>
                         </div>
                         <div class="col pl-2">
-                            <button class="bouton1">{{ count_financement.financement }}</button>
+                            <button id="bouton4" class="bouton1">{{ count_financement.financement }}</button>
                             <span style="color: black;">Financements</span>
                         </div>
                     </div></br>
-                    <a href="#?w=750" rel="popupdeux" id="poplight2" style="background-color: #531B51; text-decoration: none; border: 2px solid #531B51; border-radius: 12px;" class="btn btn-light" role="button"><span>Ajouter Ventes</span></a>
+                    <a href="#?w=750" rel="popupdeux" id="poplight2" style="margin-left: 40px; background-color: #531B51; text-decoration: none; border: 2px solid #531B51; border-radius: 12px;" class="btn btn-light" role="button"><span>Ajouter Ventes</span></a>
                 </center>
             </div>
         </div>
@@ -174,7 +174,7 @@
                     </div>
                 </div></br></br>
                 <center>
-                    <button style="background-color: #9D1458;" type="submit" class="btn btn-light"><span style="color: white;">Ajouter</span></button>
+                    <button id="js-add" style="background-color: #9D1458;" type="submit" class="btn btn-light"><span style="color: white;">Ajouter</span></button>
                 </center>
                 {{ form_end(form_vente) }}
         </div>
@@ -262,24 +262,129 @@
                 return false;
             });
 
-        });
+            $('#poplight3').click(function(e){
+                e.preventDefault();
 
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "2500",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
+                var mandat = $('input[placeholder="Nombre"]').val();
+
+                jQuery.ajax({
+                    url: '{{ path('add-mandat') }}',
+                    type: 'POST',
+                    data: {
+                        mandat: mandat
+                    },
+                    success: function (data) {
+                        $('.nombre_mandat').html(data.response);
+
+                        $('#fade , .popup_block').fadeOut(function() {
+                            $('#fade, a.close').remove();  //...ils disparaissent ensemble
+                        });
+                        $('form').find('input').val("");
+
+                        if(data.message === "Erreur dans l'ajout de mandat")
+                        {
+                            toastr.error(data.message)
+                        }
+                        else
+                        {
+                            toastr.success(data.message)
+                        }
+
+
+                    },
+                    error: function (jqxhr) {
+                        alert(jqxhr.responseText);
+                    }
+                });
+            });
+
+            $('#js-add').click(function(e){
+                e.preventDefault();
+
+                var date_vente = $('input[placeholder="01/01/1900"]').val();
+                var immatriculation = $('input[placeholder="AA123BB"]').val();
+                var livree = $('input[name="vente[livree]"]').attr("checked") ? 1 : 0;
+                var fraisMER = $('input[name="vente[frais_mer]"]').attr("checked") ? 1 : 0;
+                var garantie = $('input[name="vente[garantie]"]').attr("checked") ? 1 : 0;
+                var financement = $('input[name="vente[financement]"]').attr("checked") ? 1 : 0;
+
+                jQuery.ajax({
+                    url: '{{ path('add-vente') }}',
+                    type: 'POST',
+                    data: {
+                        vente: date_vente,
+                        immatriculation: immatriculation,
+                        livree: livree,
+                        fraisMER: fraisMER,
+                        garantie: garantie,
+                        financement: financement
+                    },
+                    success: function (data) {
+
+                        if(data.errors !== undefined)
+                        {
+                            for(const error in data.errors)
+                            {
+                                toastr.error(data.errors[error],{
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": true,
+                                    "positionClass": "toast-top-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "7000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                });
+                            }
+
+                            $('#fade , .popup_block').fadeOut(function() {
+                                $('#fade, a.close').remove();  //...ils disparaissent ensemble
+                            });
+
+                            $('input[placeholder="01/01/1900"]').val("")
+                            $('input[placeholder="AA123BB"]').val("");
+                            $('input[type="checkbox"]').attr('checked', false);
+                        }
+                        else
+                        {
+                            $('#mesventes').html(data.vente);
+                            $('#bouton1').html(data.livree);
+                            $('#bouton2').html(data.fraisMER);
+                            $('#bouton3').html(data.garantie);
+                            $('#bouton4').html(data.financement);
+
+                            toastr.success(data.message)
+
+                            $('#fade , .popup_block').fadeOut(function() {
+                                $('#fade, a.close').remove();  //...ils disparaissent ensemble
+                            });
+
+                            $('input[placeholder="01/01/1900"]').val("")
+                            $('input[placeholder="AA123BB"]').val("");
+                            $('input[type="checkbox"]').attr('checked', false);
+
+
+
+
+                        }
+
+                    },
+                    error: function (jqxhr) {
+                        console.log(jqxhr.responseText);
+                    }
+                });
+
+
+            });
+
+        });
 
     </script>
 

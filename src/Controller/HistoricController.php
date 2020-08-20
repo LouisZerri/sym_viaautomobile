@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Repository\VenteHistoriqueRepository;
 use App\Repository\VenteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Access;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use App\Services\MonthToNumber;
 
+/**
+ * @Access("has_role('ROLE_USER') or has_role('ROLE_ADMIN')")
+ */
 class HistoricController extends AbstractController
 {
     /**
@@ -69,11 +73,6 @@ class HistoricController extends AbstractController
     public function index()
     {
         $user = $this->security->getUser();
-
-        if($user == null)
-        {
-            return $this->redirectToRoute('home');
-        }
 
         $mandats = $this->mandatHistoriqueRepository->findBy(['users' => $user]);
         $ventes = $this->venteHistoriqueRepository->findBy(['users' => $user]);

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% include 'layout/navbar.html.twig' %}
+
+    <div style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
+        <h3 style="color: #531B51; margin-bottom: 70px;"><b>OPÉRATIONS DIVERSES</b></h3>
+        <form style="margin-left: 30px;" id="myform" action="#" method="POST">
+            <div class="form-group">
+                <label for="">Mettre les mandats à 0</label>
+                <input type="text" class="form-control" name="mandat">
+                <small id="" class="form-text text-muted">Cette action sera irréversible</small>
+            </div>
+            <div class="form-group">
+                <label for="">Mettre les ventes à 0</label>
+                <input type="text" class="form-control" name="vente">
+                <small id="" class="form-text text-muted">Cette action sera irréversible</small>
+            </div>
+            <div class="form-group">
+                <label for="">Ajouter un nouvel administrateur</label>
+                <select name="name" class="form-control">
+                    <option id="periode" selected="selected"><span>Collaborateurs</span></option>
+                    {% for user in users %}
+                        {% if 'ROLE_ADMIN' not in user.roles %}
+                            <option>{{ user.prenom }} {{ user.nom }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <button id="js-add" style="background-color: #754974;" type="submit" class="btn btn-light mb-2"><span style="color: white;">Enregistrer</span></button>
+        </form>
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            $('#js-add').click(function (e){
+                e.preventDefault();
+
+                var mandat = $('input[name="mandat"]').val();
+                var vente = $('input[name="vente"]').val();
+                var collaborateur = $('select[name="name"]').val();
+
+                jQuery.ajax({
+                    url: '{{ path('admin-miscellaneous-add') }}',
+                    type: 'POST',
+                    data: {
+                        mandat: mandat,
+                        vente: vente,
+                        name: collaborateur
+                    },
+                    success: function (data) {
+                        toastr.success("Données à jour")
+                    },
+                    error: function (jqxhr) {
+                        alert(jqxhr.responseText);
+                    }
+                });
+
+            });
+
+
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

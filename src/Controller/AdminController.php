@@ -6,14 +6,20 @@ use App\Entity\Challenge;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
 use App\Repository\MandatHistoricRepository;
+use App\Repository\MandatRepository;
 use App\Repository\UserRepository;
+use App\Repository\VenteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @IsGranted("ROLE_ADMIN")
+ */
 class AdminController extends AbstractController
 {
 
@@ -182,6 +188,78 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin-challenges');
     }
 
+    /**
+     * @Route("/admin/miscellaneous", name="admin-miscellaneous")
+     */
+    public function miscellaneousOperation()
+    {
+        $users = $this->userRepository
+            ->findAll();
+
+        return $this->render('admin/miscellaneous.html.twig',[
+            'users' => $users
+        ]);
+    }
+
+    /**
+     * @Route("/admin/miscellaneous/add", name="admin-miscellaneous-add")
+     * @param Request $request
+     * @param MandatRepository $mandatRepository
+     * @param VenteRepository $venteRepository
+     * @return JsonResponse
+     */
+    public function addElement(Request $request, MandatRepository $mandatRepository, VenteRepository $venteRepository)
+    {
+        $user = $this->getUser();
+
+        if($user == null)
+        {
+            return $this->json(['code' => 403, 'message' => 'Unauthorized'], 403);
+        }
+
+        if($request->getMethod() == 'POST')
+        {
+            $data = $request->request->all();
+
+        }
+
+        $mandats = $mandatRepository
+            ->findAll();
+
+        $ventes = $venteRepository
+            ->findAll();
+
+        if($data['mandat'] != "")
+        {
+            foreach($mandats as $mandat)
+            {
+                $mandat->setNombre(0);
+            }
+        }
+
+        if($data['vente'] != "")
+        {
+            foreach($ventes as $vente)
+            {
+                $this->em->remove($vente);
+            }
+
+            $this->em->flush();
+        }
+
+        if($data['name'] != 'Collaborateurs')
+        {
+            $newData = explode(" ", $data['name']);
+            $newAdmin = $this->userRepository
+                ->findOneBy(['prenom' => $newData['0']]);
+
+            $newAdmin->setRoles('ROLE_ADMIN');
+            $this->em->flush();
+        }
+
+
+        return $this->json(['code' => 200, 'message' => 'Données postées'], 200);
+    }
 
 
 }

@@ -123,6 +123,11 @@ class User implements UserInterface, \Serializable
      */
     private $venteHistoriques;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $roles;
+
     public function __construct()
     {
         $this->ventes = new ArrayCollection();
@@ -285,9 +290,19 @@ class User implements UserInterface, \Serializable
         return substr(str_shuffle(str_repeat($alphabet, $length)), 0, $length);
     }
 
+    /**
+     * @return array
+     */
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        return array($this->roles);
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getSalt()
@@ -428,4 +443,5 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+
 }

@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Access;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +45,7 @@ class SecurityController extends AbstractController
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
+
         $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
@@ -53,7 +55,7 @@ class SecurityController extends AbstractController
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
             $token = $user->str_random(60);
-
+            $user->setRoles('ROLE_USER');
             $user->setConfirmationCle($token);
             $user->setPassword($hash);
             $manager->persist($user);
@@ -94,18 +96,14 @@ class SecurityController extends AbstractController
 
     /**
      * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
      * @return Response
+     * @Access("has_role('ROLE_USER') or has_role('ROLE_ADMIN')")
      * @Route("/parametre-de-compte", name="edit_account")
      */
     public function edit(Request $request, UserPasswordEncoderInterface $encoder)
     {
-
         $user = $this->getUser();
-
-        if($user == null)
-        {
-            return $this->redirectToRoute('home');
-        }
 
         $form = $this->createForm(RegistrationType::class, $user);
 

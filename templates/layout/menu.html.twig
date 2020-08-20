@@ -30,7 +30,9 @@
         <li><a style="text-decoration: none;" id="change" href="{{ path('challenges') }}"><i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;Les challenges</a></li></br>
         <li><a id="change" href="{{ path('dashboard') }}"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Mon tableau de bord</a></li></br>
         <li><a id="change" href="{{ path('historique') }}"><i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;Historique</a></li></br>
-        <!--<li><a id="change" href="backoffice.php"><i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp;Administration</a></li></br>-->
+            {% if is_granted('ROLE_ADMIN') %}
+                <li><a id="change" href="{{ path('admin') }}"><i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp;Administration</a></li></br>
+            {% endif %}
         <li><a id="change" href="{{ path('edit_account') }}"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Paramètres du compte</a></li></br>
         <li><a id="change" href="{{ path('security_logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Deconnexion</a></li></br>
     </ul>
