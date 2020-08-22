@@ -11,6 +11,7 @@ use App\Form\VenteType;
 use App\Repository\ChallengeRepository;
 use App\Repository\MandatRepository;
 use App\Repository\UserRepository;
+use App\Repository\VenteHistoriqueRepository;
 use App\Repository\VenteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Access;
@@ -58,12 +59,18 @@ class DashboardController extends AbstractController
      */
     private $mandatRepository;
 
+    /**
+     * @var VenteHistoriqueRepository
+     */
+    private $venteHistorique;
+
     public function __construct(UserRepository $userRepository,
                                 VenteRepository $venteRepository,
                                 EntityManagerInterface $em,
                                 Security $security,
                                 ChallengeRepository $challengeRepository,
-                                MandatRepository $mandatRepository)
+                                MandatRepository $mandatRepository,
+                                VenteHistoriqueRepository $venteHistorique)
     {
         $this->userRepository = $userRepository;
         $this->venteRepository = $venteRepository;
@@ -71,6 +78,7 @@ class DashboardController extends AbstractController
         $this->security = $security;
         $this->challengeRepository = $challengeRepository;
         $this->mandatRepository = $mandatRepository;
+        $this->venteHistorique = $venteHistorique;
     }
 
     /**
@@ -191,9 +199,9 @@ class DashboardController extends AbstractController
             $errors['immatriculation'] = "L'immatriculation du véhicule n'est pas au bon format";
         }
 
-        $immatriculation = $this->venteRepository
+        $immatriculation = $this->venteHistorique
             ->findOneBy(['immatriculation' => $data['immatriculation']]);
-
+        
         if($immatriculation != null)
         {
             $errors['immatriculation_vehicule'] = "L'immatriculation du véhicule existe déjà";

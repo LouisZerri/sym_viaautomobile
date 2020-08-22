@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -90,6 +91,129 @@ class AdminController extends AbstractController
             'mandats' => $mandats
         ]);
     }
+
+    /**
+     * @param string $slug
+     * @Route("/export-csv/{slug}", name="export-csv")
+     */
+    public function exportCsv(string $slug)
+    {
+        $response = new StreamedResponse();
+
+        if($slug == 'vente')
+        {
+            $header = [
+                'Collaborateurs',
+                'Site de rattachement',
+                'Nombre de vehicules vendus',
+                'Nombre de livraison',
+                'Nombre de financement',
+                'Nombre de garantie',
+                'Nombre de frais de mise en route',
+            ];
+
+            $response->setCallback(function() use ($header){
+
+                $handle = fopen('php://output', 'w+');
+                fputcsv($handle,$header, ';');
+                $results = $this->userRepository->getByCollaborateur();
+
+                $total_vente = 0;
+                $total_livraison = 0;
+                $total_financement = 0;
+                $total_garantie = 0;
+                $total_fme = 0;
+
+                foreach($results as $result)
+                {
+                    $total_vente +=  $result['vente'];
+                    $total_livraison +=  $result['livree'];
+                    $total_financement +=  $result['financement'];
+                    $total_garantie +=  $result['garantie'];
+                    $total_fme +=  $result['fraisMER'];
+
+                    $collaborateurs = $result['prenom'] . ' ' . $result['nom'];
+
+                    fputcsv(
+                        $handle,
+                        [
+                            $collaborateurs,
+                            $result['site_rattachement'],
+                            $result['vente']  ?? 0,
+                            $result['livree'] ?? 0,
+                            $result['financement']  ?? 0,
+                            $result['garantie']  ?? 0,
+                            $result['fraisMER']  ?? 0,
+                        ],
+                        ';'
+                    );
+                }
+
+                echo "\n".'"TOTAL'.'"; ;"'.$total_vente.'";"'.$total_livraison.'";"'.$total_financement.'";"'.$total_garantie.'";"'.$total_fme.'"';
+
+                fclose($handle);
+
+            });
+
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+            $response->headers->set('Content-Disposition','attachment; filename="export-vente.csv"');
+
+        }
+
+        if($slug == 'mandat')
+        {
+            $header = [
+                'Collaborateurs',
+                'Site de rattachement',
+                'Nombre de mandats',
+            ];
+
+            $response->setCallback(function() use ($header){
+
+                $handle = fopen('php://output', 'w+');
+                fputcsv($handle,$header, ';');
+                $results = $this->mandatHistoriqueRepository->getAllMandat();
+
+                $total = 0;
+
+                foreach($results as $result)
+                {
+                    $total +=  $result['nombre'];
+                    $collaborateurs = $result['prenom'] . ' ' . $result['nom'];
+
+                    fputcsv(
+                        $handle,
+                        [
+                            $collaborateurs,
+                            $result['site_rattachement'],
+                            $result['nombre']  ?? 0
+                        ],
+                        ';'
+                    );
+                }
+
+                echo "\n".'"TOTAL'.'"; ;"'.$total.'"';
+
+                fclose($handle);
+
+            });
+
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+            $response->headers->set('Content-Disposition','attachment; filename="export-mandat.csv"');
+        }
+
+
+        return $response;
+    }
+
+
+
+
+
+
+
 
     /**
      * @Route("/admin/challenges", name="admin-challenges")
@@ -260,6 +384,5 @@ class AdminController extends AbstractController
 
         return $this->json(['code' => 200, 'message' => 'Données postées'], 200);
     }
-
 
 }

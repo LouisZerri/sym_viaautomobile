@@ -9,22 +9,6 @@
                 <script> toastr.success('Compte modifié avec succès'); </script>
             {% endif %}
         {% endfor %}
-
-        {% if not form_mandat.vars.valid %}
-            {% for child in form_mandat.children %}
-                {%for error in child.vars.errors%}
-                    <script> toastr.error('Des données sont incorrectes'); </script>
-                {%endfor%}
-            {%endfor%}
-        {%endif%}
-
-        {% if not form_vente.vars.valid %}
-            {% for child in form_vente.children %}
-                {%for error in child.vars.errors%}
-                    <script> toastr.error('Des données sont incorrectes'); </script>
-                {%endfor%}
-            {%endfor%}
-        {%endif%}
     </div>
 {% elseif app.request.attributes.get('_route') == 'admin-challenges' %}
     <div class="container">

@@ -72,38 +72,44 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
-
-
-
-
-
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getByCollaborateurByMonth(string $month)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('u.nom, 
+                            u.prenom, 
+                            u.site_rattachement, 
+                            mandat.nombre, 
+                            count(h.users) as vente, 
+                            sum(h.livree) as livree, 
+                            sum(h.financement) as financement,
+                            sum(h.frais_mer) as fraisMER,
+                            sum(h.garantie) as garantie')
+            ->innerJoin('u.mandat', 'mandat')
+            ->leftJoin('u.venteHistoriques', 'h')
+            ->andWhere('SUBSTRING(h.date_vente, 6, 2) = :value')
+            ->setParameter('value', $month)
+            ->groupBy('h.users')
+            ->orderBy('mandat.nombre', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?User
+    public function getUserForResetPassword($id, $token)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('u')
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('u.reset_token IS NOT NULL')
+            ->andWhere('u.reset_token = :token')
+            ->setParameter('token', $token)
+            ->andWhere('u.reset_at > :date')
+            ->setParameter('date', new \DateTime('-30 minutes'))
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+
+
+
+
 }

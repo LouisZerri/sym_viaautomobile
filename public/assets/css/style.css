@@ -143,9 +143,9 @@ a:hover
     border-radius: 15px;
 }
 
-/* Login */
+/* Login, Validation de compte, mot de passe oublié et le reset de mot de passe */
 
-#login
+#login, #validate_account, #forgotpassword, #reset
 {
     position: absolute;
     width: 25%;

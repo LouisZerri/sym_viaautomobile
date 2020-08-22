@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container mb-5">
+        {% if errors %}
+            <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+                <p class="text-danger">Vous n'avez pas rempli le formulaire correctement : </p>
+                <ul>
+                    {% for error in errors %}
+                        <li style="list-style-type: disc;">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    </div>
+
+    <img style="right: 0; padding-bottom: 170px; position: fixed;" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
+    <div id="reset" class="card">
+        <center>
+            </br>
+            <img src="{{ asset('assets/images/logo_couleur.svg') }}" alt="logo" width="300" height="75">
+            </br>
+        </center>
+        <div class="card-body">
+            <form action="" method="POST">
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Saissisez votre nouveau mot de passe" required>
+                </div></br>
+                <div class="form-group">
+                    <input type="password" name="confirm_password" class="form-control" placeholder="Confirmez votre nouveau mot de passe" required>
+                </div>
+                <center></br>
+                    <button id="boutons" style="background-color: #9D1458;" type="submit" class="btn btn-light"><span style="color: white;">Valider</span></button>
+                </center>
+            </form>
+        </div>
+    </div>
+
+    <div id="fin">
+        <p style="color: white;">Powered by Pepperbay</p>
+    </div>
+
+{% endblock %}

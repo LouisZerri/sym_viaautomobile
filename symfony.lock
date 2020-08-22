@@ -87,6 +87,9 @@
     "egulias/email-validator": {
         "version": "2.19.0"
     },
+    "egyg33k/csv-bundle": {
+        "version": "1.0.1"
+    },
     "fig/link-util": {
         "version": "1.1.1"
     },
@@ -95,6 +98,9 @@
     },
     "jms/metadata": {
         "version": "1.7.0"
+    },
+    "league/csv": {
+        "version": "9.6.0"
     },
     "liip/imagine-bundle": {
         "version": "1.8",

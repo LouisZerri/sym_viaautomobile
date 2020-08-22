@@ -4,7 +4,26 @@
 
 
     <img style="right: 0; padding-bottom: 170px; position: fixed;" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
-    <div class="container">
+    <div class="container mb-5">
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success mt-5">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger mt-5">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+
 
         {% if error %}
             <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
@@ -14,8 +33,6 @@
                 </button>
             </div>
         {% endif %}
-
-
 
         <div id="login" class="card">
             <center>
@@ -31,7 +48,7 @@
                     <div class="form-group">
                         <input type="password" id="password" name="_password" class="form-control" placeholder="Saissisez votre mot de passe" required>
                     </div></br>
-                    <center><a style="text-decoration: underline;" href="#">Mot de passe oublié ?</a></center></br>
+                    <center><a style="text-decoration: underline;" href="{{ path('forgot-password') }}">Mot de passe oublié ?</a></center></br>
                     <center>
                         <button id="boutons" style="background-color: #9D1458;" type="submit" class="btn btn-outline-light mt-2"><span style="color: white;">connexion</span></button>
                     </center>

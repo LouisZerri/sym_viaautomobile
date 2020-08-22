@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
+        "egyg33k/csv-bundle": "^1.0",
         "liip/imagine-bundle": "2.1",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
@@ -33,6 +34,7 @@
         "symfony/twig-bundle": "4.3.*",
         "symfony/validator": "4.3.*",
         "symfony/web-link": "4.3.*",
+        "symfony/web-server-bundle": "4.3.*",
         "symfony/yaml": "4.3.*",
         "vich/uploader-bundle": "1.8"
     },
@@ -46,8 +48,7 @@
         "symfony/stopwatch": "^4.3",
         "symfony/twig-bundle": "^4.3",
         "symfony/var-dumper": "^4.3",
-        "symfony/web-profiler-bundle": "^4.3",
-        "symfony/web-server-bundle": "4.3.*"
+        "symfony/web-profiler-bundle": "^4.3"
     },
     "config": {
         "preferred-install": {

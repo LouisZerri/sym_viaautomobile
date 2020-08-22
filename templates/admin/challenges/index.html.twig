@@ -6,55 +6,18 @@
 
     <div style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
         <h3 style="color: #531B51;"><b>STATISTIQUE DE SALES CHALLENGE</b></h3>
-        <div class="row">
-            <div class="col">
-                <form action="" method="POST">
-                    <div class="form-group mt-5">
-                        <p>Filtrer les recherches par :</p>
-                        <select class="form-control" name="filtre">
-                            <option selected="selected">Filtre</option>
-                            <option>Collaborateurs</option>
-                            <option>Sites</option>
-                            <option>Consolidations</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div style="padding-top: 85px;" class="col">
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <select name="mois" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
-                            <option id="periode" selected="selected"><span>Mois</span></option>
-                            <option id="01">Janvier</option>
-                            <option id="02">Février</option>
-                            <option id="03">Mars</option>
-                            <option id="04">Avril</option>
-                            <option id="05">Mai</option>
-                            <option id="06">Juin</option>
-                            <option id="07">Juillet</option>
-                            <option id="08">Août</option>
-                            <option id="09">Septembre</option>
-                            <option id="10">Octobre</option>
-                            <option id="11">Novembre</option>
-                            <option id="12">Décembre</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div style="padding-top: 85px;" class="col">
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <select name="trimestre" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
-                            <option id="periode" selected="selected"><span>Trimestre</span></option>
-                            <option id="1">Trimestre 1</option>
-                            <option id="2">Trimestre 2</option>
-                            <option id="3">Trimestre 3</option>
-                            <option id="4">Trimestre 4</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-
+        <div style="margin-left: 600px;">
+            <form action="" method="POST">
+                <div class="form-group mt-5">
+                    <p>Filtrer les recherches par :</p>
+                    <select class="form-control" name="filtre">
+                        <option selected="selected">Filtre</option>
+                        <option>Collaborateurs</option>
+                        <option>Sites</option>
+                        <option>Consolidations</option>
+                    </select>
+                </div>
+            </form>
         </div>
 
         <div class="mytables" id="ma_table_Collaborateurs">
@@ -88,26 +51,26 @@
                             <tr>
                                 <td align="center">{{ result.prenom }} {{ result.nom }}</td>
                                 <td align="center">{{ result.site_rattachement }}</td>
-                                <td align="center">{{ result.vente }}</td>
-                                <td align="center">{{ result.livree }}</td>
-                                <td align="center">{{ result.financement }}</td>
-                                <td align="center">{{ result.garantie }}</td>
-                                <td align="center">{{ result.fraisMER }}</td>
+                                <td id="ventes" align="center">{{ result.vente }}</td>
+                                <td id="livrees" align="center">{{ result.livree ?? 0 }}</td>
+                                <td id="financement" align="center">{{ result.financement ?? 0 }}</td>
+                                <td id="garantie" align="center">{{ result.garantie ?? 0 }}</td>
+                                <td id="fraisMER" align="center">{{ result.fraisMER ?? 0 }}</td>
                             </tr>
                         {% endfor %}
                         <tr>
                             <td align="center"><b>TOTAL</b></td>
                             <td align="center"></td>
                             <td align="center"><b>{{ total_vente }}</b></td>
-                            <td align="center"><b>{{ total_livraison }}</b></td>
-                            <td align="center"><b>{{ total_financement }}</b></td>
-                            <td align="center"><b>{{ total_garantie }}</b></td>
-                            <td align="center"><b>{{ total_fme }}</b></td>
+                            <td id="livrees" align="center"><b>{{ total_livraison }}</b></td>
+                            <td id="financement" align="center"><b>{{ total_financement }}</b></td>
+                            <td id="garantie" align="center"><b>{{ total_garantie }}</b></td>
+                            <td id="fraisMER" align="center"><b>{{ total_fme }}</b></td>
                         </tr>
                         </tbody>
                     </table>
                     <div style="text-align: right;">
-                        <a id="lien" href="#" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
+                        <a id="lien" href="{{ path('export-csv', {slug: "vente"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -137,7 +100,7 @@
                         </tbody>
                     </table>
                     <div style="text-align: right;">
-                        <a id="lien_mandat" href="#" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
+                        <a id="lien_mandat" href="{{ path('export-csv', {slug: "mandat"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
                     </div>
                 </div>
             </div>
@@ -206,15 +169,6 @@
                 </tbody>
             </table>
         </div>
-
-
-
-
-
-
-
-
-
     </div>
 
 
@@ -242,6 +196,7 @@
                 $('#' + id).show();
 
             });
+
         });
     </script>
 
