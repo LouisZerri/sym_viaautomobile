@@ -343,6 +343,16 @@ tr, td
     color:#fff;
 }
 
+.mypopover > li
+{
+    list-style-type: disc;
+}
+
+#vente > .modal-dialog
+{
+    min-width: 700px;
+}
+
 
 
 

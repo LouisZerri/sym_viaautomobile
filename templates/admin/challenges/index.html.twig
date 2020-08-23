@@ -171,34 +171,4 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-
-            // Je sélectionne le select et quand la valeur change on fait une action
-            $('select[name="filtre"]').change(function () {
-
-                // Je créer l'id du div qui va être affiché
-                var id = "ma_table_" + $(this).val();
-                console.log(id)
-                // Je cache toutes les divs grâce à une classe qui va sélectionner le tout
-                $('.mytables').hide();
-
-                // Et j'affiche seulement le Div que je souhaite
-                $('#' + id).show();
-
-            });
-
-        });
-    </script>
-
-
 {% endblock %}

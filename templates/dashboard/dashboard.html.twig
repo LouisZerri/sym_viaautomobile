@@ -102,7 +102,7 @@
                     <h3 style="color: #531B51;"><b>NOMBRE DE MANDATS</b></h3>
                     <p class="nombre_mandat" style="font-size: 7em; color: #531B51;">{{ mandat ? mandat.nombre : 0 }}</p>
                     <p style="font-size: 2em; color: #531B51;">Mandats</p></br>
-                    <a href="#?w=500" rel="popupun" id="poplight" style="background-color: #531B51; text-decoration: none; border: 2px solid #531B51; border-radius: 12px;" class="btn btn-light" role="button"><span>Ajouter Mandats</span></a>
+                    <button style="background-color: #531B51; border-radius: 12px;" class="btn btn-light" role="button" data-toggle="modal" data-target="#mandat"><span>Ajouter Mandats</span></button>
                 </div>
             </div>
             <div>
@@ -132,135 +132,67 @@
                             <span style="color: black;">Financements</span>
                         </div>
                     </div></br>
-                    <a href="#?w=750" rel="popupdeux" id="poplight2" style="margin-left: 40px; background-color: #531B51; text-decoration: none; border: 2px solid #531B51; border-radius: 12px;" class="btn btn-light" role="button"><span>Ajouter Ventes</span></a>
+                    <button style="background-color: #531B51; border-radius: 12px;" class="btn btn-light" role="button" data-toggle="modal" data-target="#vente"><span>Ajouter Ventes</span></button>
                 </center>
             </div>
         </div>
     </center>
 
-    <div id="popupun" class="popup_block">
-        <center>
-            <div class="container">
-                <h2 style="color: #531B51;">AJOUT DE MANDATS</h2></br>
-                <p style="font-size: 15px; color: #531B51;">Combien de mandats</br>souhaitez-vous comptabiliser ?</p></br>
-                {{ form_start(form_mandat) }}
-                {{ form_row(form_mandat.nombre, {'attr': {'placeholder': 'Nombre'}}) }}
-                <button rel="popuptrois" id="poplight3" style="background-color: #9D1458;" type="submit" class="btn btn-light"><span style="color: white;">Ajouter</span></button>
-                {{ form_end(form_mandat) }}
+    <div class="modal fade" id="mandat" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" style="color: #531B51;">AJOUT DE MANDATS</h2></br>
+                </div>
+                <div class="modal-body">
+                    <p style="font-size: 15px; color: #531B51;">Combien de mandats souhaitez-vous comptabiliser ?</p></br>
+                    {{ form_start(form_mandat) }}
+                    {{ form_row(form_mandat.nombre, {'attr': {'placeholder': 'Nombre'}}) }}
+                </div>
+                <div class="modal-footer">
+                    <button rel="popuptrois" id="poplight3" style="background-color: #9D1458;" type="submit" class="btn btn-light" data-dismiss="modal"><span style="color: white;">Ajouter</span></button>
+                    {{ form_end(form_mandat) }}
+                </div>
             </div>
-        </center>
-    </div>
-
-    <div id="popupdeux" class="popup_block">
-        <div class="container">
-            <center>
-                <h2 style="color: #531B51;">AJOUT D'UNE VENTE</h2></br>
-            </center>
-                {{ form_start(form_vente) }}
-                {{ form_row(form_vente.date_vente, {'attr': {'placeholder': '01/01/1900'}}) }}
-                {{ form_row(form_vente.immatriculation, {'attr': {'placeholder': 'AA123BB'}}) }}
-                <div class="row">
-                    <div class="col-sm">
-                        {{ form_row(form_vente.livree) }}
-                    </div>
-                    <div class="col-sm">
-                        {{ form_row(form_vente.frais_mer) }}
-                    </div>
-                    <div class="col-sm">
-                        {{ form_row(form_vente.garantie) }}
-                    </div>
-                    <div class="col-sm">
-                        {{ form_row(form_vente.financement) }}
-                    </div>
-                </div></br></br>
-                <center>
-                    <button id="js-add" style="background-color: #9D1458;" type="submit" class="btn btn-light"><span style="color: white;">Ajouter</span></button>
-                </center>
-                {{ form_end(form_vente) }}
         </div>
     </div>
 
-
+    <div class="modal fade" id="vente" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" style="color: #531B51;">AJOUT D'UNE VENTE</h2></br>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form_vente) }}
+                    {{ form_row(form_vente.date_vente, {'attr': {'placeholder': '01/01/1900'}}) }}
+                    {{ form_row(form_vente.immatriculation, {'attr': {'placeholder': 'AA123BB'}}) }}
+                    <div class="row">
+                        <div class="col-sm">
+                            {{ form_row(form_vente.livree) }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form_row(form_vente.frais_mer) }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form_row(form_vente.garantie) }}
+                        </div>
+                        <div class="col-sm">
+                            {{ form_row(form_vente.financement) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="js-add" style="background-color: #9D1458;" type="submit" class="btn btn-light" data-dismiss="modal"><span style="color: white;">Ajouter</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function() {
-
-            //Popup 1
-            $('a#poplight[href^=#]').click(function() {
-                var popID = $(this).attr('rel'); //Trouver la pop-up correspondante
-                var popURL = $(this).attr('href'); //Retrouver la largeur dans le href
-
-                //Récupérer les variables depuis le lien
-                var query= popURL.split('?');
-                var dim= query[1].split('&amp;');
-                var popWidth = dim[0].split('=')[1]; //La première valeur du lien
-
-                //Faire apparaitre la pop-up
-                $('#' + popID).fadeIn().css({
-                    'width': Number(popWidth)
-                })
-
-                //Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
-                var popMargTop = ($('#' + popID).height() + 80) / 2;
-                var popMargLeft = ($('#' + popID).width() + 80) / 2;
-
-                //On affecte le margin
-                $('#' + popID).css({
-                    'margin-top' : -popMargTop,
-                    'margin-left' : -popMargLeft
-                });
-
-                //Effet fade-in du fond opaque
-                $('body').append('<div id="fade"></div>'); //Ajout du fond opaque noir
-                //Apparition du fond - .css({'filter' : 'alpha(opacity=80)'}) pour corriger les bogues de IE
-                $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
-
-                return false;
-            });
-
-            //Popup 2
-            $('a#poplight2[href^=#]').click(function() {
-                var popID = $(this).attr('rel'); //Trouver la pop-up correspondante
-                var popURL = $(this).attr('href'); //Retrouver la largeur dans le href
-
-                //Récupérer les variables depuis le lien
-                var query= popURL.split('?');
-                var dim= query[1].split('&amp;');
-                var popWidth = dim[0].split('=')[1]; //La première valeur du lien
-
-                //Faire apparaitre la pop-up
-                $('#' + popID).fadeIn().css({
-                    'width': Number(popWidth)
-                })
-
-                //Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
-                var popMargTop = ($('#' + popID).height() + 80) / 2;
-                var popMargLeft = ($('#' + popID).width() + 80) / 2;
-
-                //On affecte le margin
-                $('#' + popID).css({
-                    'margin-top' : -popMargTop,
-                    'margin-left' : -popMargLeft
-                });
-
-                //Effet fade-in du fond opaque
-                $('body').append('<div id="fade"></div>'); //Ajout du fond opaque noir
-                //Apparition du fond - .css({'filter' : 'alpha(opacity=80)'}) pour corriger les bogues de IE
-                $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
-
-                return false;
-            });
-
-            //Fermeture de la pop-up et du fond
-            $('a.close, #fade').live('click', function() { //Au clic sur le bouton ou sur le calque...
-                $('#fade , .popup_block').fadeOut(function() {
-                    $('#fade, a.close').remove();  //...ils disparaissent ensemble
-                });
-
-                return false;
-            });
 
             $('#poplight3').click(function(e){
                 e.preventDefault();
