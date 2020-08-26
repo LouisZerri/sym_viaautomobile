@@ -1,0 +1,55 @@
+{% if results %}
+
+    <table id="filtre_mois" class="table table-striped">
+        <thead>
+        <tr>
+            <th style="text-align: center;" scope="col">Collaborateurs</th>
+            <th style="text-align: center;" scope="col">Site de rattachement</th>
+            <th style="text-align: center;" scope="col">Nombre de véhicules vendus</th>
+            <th style="text-align: center;" scope="col">Nombre de livraison</th>
+            <th style="text-align: center;" scope="col">Nombre de financement</th>
+            <th style="text-align: center;" scope="col">Nombre de garantie</th>
+            <th style="text-align: center;" scope="col">Nombre de frais de mise en route</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set total_vente = 0 %}
+        {% set total_livraison = 0 %}
+        {% set total_financement = 0 %}
+        {% set total_garantie = 0 %}
+        {% set total_fme = 0 %}
+        {% for result in results %}
+
+            {% set total_vente = total_vente + result.vente %}
+            {% set total_livraison = total_livraison + result.livree %}
+            {% set total_financement = total_financement + result.financement %}
+            {% set total_garantie = total_garantie + result.garantie %}
+            {% set total_fme = total_fme + result.fraisMER %}
+            <tr>
+                <td align="center">{{ result.prenom }} {{ result.nom }}</td>
+                <td align="center">{{ result.site_rattachement }}</td>
+                <td id="ventes" align="center">{{ result.vente }}</td>
+                <td id="livrees" align="center">{{ result.livree ?? 0 }}</td>
+                <td id="financement" align="center">{{ result.financement ?? 0 }}</td>
+                <td id="garantie" align="center">{{ result.garantie ?? 0 }}</td>
+                <td id="fraisMER" align="center">{{ result.fraisMER ?? 0 }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td align="center"><b>TOTAL</b></td>
+            <td align="center"></td>
+            <td align="center"><b>{{ total_vente }}</b></td>
+            <td id="livrees" align="center"><b>{{ total_livraison }}</b></td>
+            <td id="financement" align="center"><b>{{ total_financement }}</b></td>
+            <td id="garantie" align="center"><b>{{ total_garantie }}</b></td>
+            <td id="fraisMER" align="center"><b>{{ total_fme }}</b></td>
+        </tr>
+        </tbody>
+    </table>
+{% else %}
+    <div class="container">
+        <div style="font-size: 15px; width: 725px;" class="alert alert-warning" role="alert">
+            <i class="fa fa-warning"></i>&nbsp;&nbsp;Aucune donnée à afficher
+        </div>
+    </div>
+{% endif %}

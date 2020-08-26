@@ -6,18 +6,54 @@
 
     <div style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
         <h3 style="color: #531B51;"><b>STATISTIQUE DE SALES CHALLENGE</b></h3>
-        <div style="margin-left: 600px;">
-            <form action="" method="POST">
-                <div class="form-group mt-5">
-                    <p>Filtrer les recherches par :</p>
-                    <select class="form-control" name="filtre">
-                        <option selected="selected">Filtre</option>
-                        <option>Collaborateurs</option>
-                        <option>Sites</option>
-                        <option>Consolidations</option>
-                    </select>
-                </div>
-            </form>
+        <div class="row">
+            <div class="col">
+                <form action="" method="POST">
+                    <div class="form-group mt-5">
+                        <p>Filtrer les recherches par :</p>
+                        <select class="form-control" name="filtre">
+                            <option selected="selected">Filtre</option>
+                            <option>Collaborateurs</option>
+                            <option>Sites</option>
+                            <option>Consolidations</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div style="padding-top: 90px;" class="col">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <select name="mois" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
+                            <option id="periode" selected="selected"><span>Mois</span></option>
+                            <option id="01">Janvier</option>
+                            <option id="02">Février</option>
+                            <option id="03">Mars</option>
+                            <option id="04">Avril</option>
+                            <option id="05">Mai</option>
+                            <option id="06">Juin</option>
+                            <option id="07">Juillet</option>
+                            <option id="08">Août</option>
+                            <option id="09">Septembre</option>
+                            <option id="10">Octobre</option>
+                            <option id="11">Novembre</option>
+                            <option id="12">Décembre</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div style="padding-top: 90px;" class="col">
+                <form action="filtre_trimestre.php" method="POST">
+                    <div class="form-group">
+                        <select name="trimestre" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
+                            <option id="periode" selected="selected"><span>Trimestre</span></option>
+                            <option id="1">Trimestre 1</option>
+                            <option id="2">Trimestre 2</option>
+                            <option id="3">Trimestre 3</option>
+                            <option id="4">Trimestre 4</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <div class="mytables" id="ma_table_Collaborateurs">
@@ -70,7 +106,7 @@
                         </tbody>
                     </table>
                     <div style="text-align: right;">
-                        <a id="lien" href="{{ path('export-csv', {slug: "vente"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
+                        <a id="lien" href="{{ path('export-csv-slug', {slug: "vente"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -100,7 +136,7 @@
                         </tbody>
                     </table>
                     <div style="text-align: right;">
-                        <a id="lien_mandat" href="{{ path('export-csv', {slug: "mandat"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
+                        <a id="lien_mandat" href="{{ path('export-csv-slug', {slug: "mandat"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
                     </div>
                 </div>
             </div>
@@ -170,5 +206,72 @@
             </table>
         </div>
     </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            $('select[name="mois"]').change(function(e) {
+
+                e.preventDefault();
+                var mois = $("select[name='mois'] option:selected").attr("id");
+                var tableVente = $('#filtre_mois');
+                var path = '{{ path("export-csv-month", {'slug': 'vente', 'mois': '00'}) }}';
+
+                if(mois === 'periode')
+                {
+                    var url = '{{ path('export-csv-slug', {'slug': 'vente'}) }}';
+                }
+                else
+                {
+                    var url = path.replace("00", mois);
+                }
+
+                jQuery.ajax({
+                    headers: {
+                      'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    url : '{{ path('admin') }}',
+                    type : 'POST',
+                    data : {
+                        mois : mois
+                    },
+                    success: function(data)
+                    {
+                        tableVente.html(data);
+                        $('#lien').attr('href',url);
+                    },
+                    error: function(jqxhr)
+                    {
+                        alert(jqxhr.responseText);
+                    }
+                });
+
+
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        });
+    </script>
 
 {% endblock %}

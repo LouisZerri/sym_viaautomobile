@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -57,8 +58,10 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/admin", name="admin")
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = $this->getUser();
 
@@ -82,6 +85,23 @@ class AdminController extends AbstractController
         $mandats = $this->mandatHistoriqueRepository
             ->getAllMandat();
 
+        if($request->isXmlHttpRequest())
+        {
+            $data = $request->request->all();
+
+            if($data['mois'] == 'periode')
+            {
+                $result = $resultByCollaborateur;
+            }
+            else
+            {
+                $result = $this->userRepository
+                    ->getByCollaborateurByMonth($data['mois']);
+            }
+
+            return $this->render('admin/ajax/_vente.html.twig', ['results' => $result]);
+        }
+
 
         return $this->render('admin/challenges/index.html.twig', [
             'result_collaborateur' => $resultByCollaborateur,
@@ -94,9 +114,12 @@ class AdminController extends AbstractController
 
     /**
      * @param string $slug
-     * @Route("/export-csv/{slug}", name="export-csv")
+     * @param string|null $mois
+     * @return StreamedResponse
+     * @Route("/export-csv/{slug}", name="export-csv-slug")
+     * @Route("/export-csv/{slug}/{mois}", name="export-csv-month")
      */
-    public function exportCsv(string $slug)
+    public function exportCsv(string $slug, string $mois = null)
     {
         $response = new StreamedResponse();
 
@@ -112,11 +135,21 @@ class AdminController extends AbstractController
                 'Nombre de frais de mise en route',
             ];
 
-            $response->setCallback(function() use ($header){
+            if($mois == null)
+            {
+                $results = $this->userRepository
+                    ->getByCollaborateur();
+            }
+            else
+            {
+                $results = $this->userRepository
+                    ->getByCollaborateurByMonth($mois);
+            }
+
+            $response->setCallback(function() use ($results, $header){
 
                 $handle = fopen('php://output', 'w+');
                 fputcsv($handle,$header, ';');
-                $results = $this->userRepository->getByCollaborateur();
 
                 $total_vente = 0;
                 $total_livraison = 0;
@@ -207,13 +240,6 @@ class AdminController extends AbstractController
 
         return $response;
     }
-
-
-
-
-
-
-
 
     /**
      * @Route("/admin/challenges", name="admin-challenges")
