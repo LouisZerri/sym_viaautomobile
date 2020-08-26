@@ -89,22 +89,50 @@ class AdminController extends AbstractController
         {
             $data = $request->request->all();
 
-            if($data['mois'] == 'periode')
+            if(isset($data['mois']))
             {
-                $result = $resultByCollaborateur;
+                if($data['mois'] == 'periode')
+                {
+                    $result = $resultByCollaborateur;
+                    $resultMandat = $this->mandatHistoriqueRepository
+                        ->getAllMandat();
+                }
+                else
+                {
+                    $result = $this->userRepository
+                        ->getByCollaborateurByMonth($data['mois']);
+
+                    $resultMandat = $this->userRepository
+                        ->getMandatByMonth($data['mois']);
+                }
             }
-            else
+            else if(isset($data['trimestre']))
             {
-                $result = $this->userRepository
-                    ->getByCollaborateurByMonth($data['mois']);
+                if($data['trimestre'] == 'periode')
+                {
+                    $result = $resultByCollaborateur;
+                    $resultMandat = $this->mandatHistoriqueRepository
+                        ->getAllMandat();
+                }
+                else
+                {
+                    $result = $this->userRepository
+                        ->getByCollaborateurByTrimester($data['trimestre']);
+                    $resultMandat = $this->userRepository
+                        ->getMandatByTrimester($data['trimestre']);
+                }
             }
 
-            return $this->render('admin/ajax/_vente.html.twig', ['results' => $result]);
+            return $this->render('admin/ajax/_filter.html.twig', [
+                'results' => $result,
+                'mandats' => $resultMandat
+            ]);
+
         }
 
 
         return $this->render('admin/challenges/index.html.twig', [
-            'result_collaborateur' => $resultByCollaborateur,
+            'results' => $resultByCollaborateur,
             'result_site_mandat' => $resultBySiteForMandat,
             'result_site_vente' => $resultBySiteForVente,
             'result_consolidation' => $resultByConsolidation,
@@ -115,11 +143,13 @@ class AdminController extends AbstractController
     /**
      * @param string $slug
      * @param string|null $mois
+     * @param string|null $trimestre
      * @return StreamedResponse
      * @Route("/export-csv/{slug}", name="export-csv-slug")
      * @Route("/export-csv/{slug}/{mois}", name="export-csv-month")
+     * @Route("/export-csv/{slug}/trimestre/{trimestre}", name="export-csv-trim")
      */
-    public function exportCsv(string $slug, string $mois = null)
+    public function exportCsv(string $slug, string $mois = null, string $trimestre = null)
     {
         $response = new StreamedResponse();
 
@@ -135,15 +165,21 @@ class AdminController extends AbstractController
                 'Nombre de frais de mise en route',
             ];
 
-            if($mois == null)
+            if($mois == null && $trimestre == null)
             {
                 $results = $this->userRepository
                     ->getByCollaborateur();
             }
-            else
+            else if($mois != null && $trimestre == null)
             {
                 $results = $this->userRepository
                     ->getByCollaborateurByMonth($mois);
+            }
+            else if($trimestre != null && $mois == null)
+            {
+                $results = $this->userRepository
+                    ->getByCollaborateurByTrimester($trimestre);
+
             }
 
             $response->setCallback(function() use ($results, $header){
@@ -202,11 +238,27 @@ class AdminController extends AbstractController
                 'Nombre de mandats',
             ];
 
-            $response->setCallback(function() use ($header){
+            if($mois == null && $trimestre == null)
+            {
+                $results = $this->mandatHistoriqueRepository
+                    ->getAllMandat();
+            }
+            else if($mois != null && $trimestre == null)
+            {
+                $results = $this->userRepository
+                    ->getMandatByMonth($mois);
+            }
+            else if($trimestre != null && $mois == null)
+            {
+                $results = $this->userRepository
+                    ->getMandatByTrimester($trimestre);
+
+            }
+
+            $response->setCallback(function() use ($results, $header){
 
                 $handle = fopen('php://output', 'w+');
                 fputcsv($handle,$header, ';');
-                $results = $this->mandatHistoriqueRepository->getAllMandat();
 
                 $total = 0;
 

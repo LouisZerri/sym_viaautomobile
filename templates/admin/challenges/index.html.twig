@@ -56,91 +56,7 @@
             </div>
         </div>
 
-        <div class="mytables" id="ma_table_Collaborateurs">
-            <div class="row">
-                <div class="col-md-6">
-                    <table id="filtre_mois" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th style="text-align: center;" scope="col">Collaborateurs</th>
-                            <th style="text-align: center;" scope="col">Site de rattachement</th>
-                            <th style="text-align: center;" scope="col">Nombre de véhicules vendus</th>
-                            <th style="text-align: center;" scope="col">Nombre de livraison</th>
-                            <th style="text-align: center;" scope="col">Nombre de financement</th>
-                            <th style="text-align: center;" scope="col">Nombre de garantie</th>
-                            <th style="text-align: center;" scope="col">Nombre de frais de mise en route</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% set total_vente = 0 %}
-                        {% set total_livraison = 0 %}
-                        {% set total_financement = 0 %}
-                        {% set total_garantie = 0 %}
-                        {% set total_fme = 0 %}
-                        {% for result in result_collaborateur %}
-
-                            {% set total_vente = total_vente + result.vente %}
-                            {% set total_livraison = total_livraison + result.livree %}
-                            {% set total_financement = total_financement + result.financement %}
-                            {% set total_garantie = total_garantie + result.garantie %}
-                            {% set total_fme = total_fme + result.fraisMER %}
-                            <tr>
-                                <td align="center">{{ result.prenom }} {{ result.nom }}</td>
-                                <td align="center">{{ result.site_rattachement }}</td>
-                                <td id="ventes" align="center">{{ result.vente }}</td>
-                                <td id="livrees" align="center">{{ result.livree ?? 0 }}</td>
-                                <td id="financement" align="center">{{ result.financement ?? 0 }}</td>
-                                <td id="garantie" align="center">{{ result.garantie ?? 0 }}</td>
-                                <td id="fraisMER" align="center">{{ result.fraisMER ?? 0 }}</td>
-                            </tr>
-                        {% endfor %}
-                        <tr>
-                            <td align="center"><b>TOTAL</b></td>
-                            <td align="center"></td>
-                            <td align="center"><b>{{ total_vente }}</b></td>
-                            <td id="livrees" align="center"><b>{{ total_livraison }}</b></td>
-                            <td id="financement" align="center"><b>{{ total_financement }}</b></td>
-                            <td id="garantie" align="center"><b>{{ total_garantie }}</b></td>
-                            <td id="fraisMER" align="center"><b>{{ total_fme }}</b></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div style="text-align: right;">
-                        <a id="lien" href="{{ path('export-csv-slug', {slug: "vente"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <table id="filtre_mois_mandat" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th style="text-align: center;" scope="col">Collaborateurs</th>
-                            <th style="text-align: center;" scope="col">Site de rattachement</th>
-                            <th style="text-align: center;" scope="col">Nombre de mandats</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% set total = 0 %}
-                        {% for mandat in mandats %}
-                            {% set total = total + mandat.nombre %}
-                            <tr>
-                                <td align="center">{{ mandat.prenom }} {{ mandat.nom }}</td>
-                                <td align="center">{{ mandat.site_rattachement }}</td>
-                                <td align="center">{{ mandat.nombre }}</td>
-                            </tr>
-                        {% endfor %}
-                        <tr>
-                            <td align="center"><b>TOTAL</b></td>
-                            <td align="center"></td>
-                            <td align="center"><b>{{ total }}</b></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div style="text-align: right;">
-                        <a id="lien_mandat" href="{{ path('export-csv-slug', {slug: "mandat"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include 'admin/ajax/_filter.html.twig' %}
 
         <div class="mytables" id="ma_table_Sites">
             <div class="row">
@@ -216,16 +132,20 @@
 
                 e.preventDefault();
                 var mois = $("select[name='mois'] option:selected").attr("id");
-                var tableVente = $('#filtre_mois');
-                var path = '{{ path("export-csv-month", {'slug': 'vente', 'mois': '00'}) }}';
+                var table = $('#ma_table_Collaborateurs');
+
+                var path_vente = '{{ path("export-csv-month", {'slug': 'vente', 'mois': '00'}) }}';
+                var path_mandat = '{{ path("export-csv-month", {'slug': 'mandat', 'mois': '00'}) }}';
 
                 if(mois === 'periode')
                 {
-                    var url = '{{ path('export-csv-slug', {'slug': 'vente'}) }}';
+                    var url_vente = '{{ path('export-csv-slug', {'slug': 'vente'}) }}';
+                    var url_mandat = '{{ path('export-csv-slug', {'slug': 'mandat'}) }}';
                 }
                 else
                 {
-                    var url = path.replace("00", mois);
+                    var url_vente = path_vente.replace("00", mois);
+                    var url_mandat = path_mandat.replace("00", mois);
                 }
 
                 jQuery.ajax({
@@ -239,8 +159,9 @@
                     },
                     success: function(data)
                     {
-                        tableVente.html(data);
-                        $('#lien').attr('href',url);
+                        table.html(data);
+                        $('#lien').attr('href',url_vente);
+                        $('#lien_mandat').attr('href',url_mandat);
                     },
                     error: function(jqxhr)
                     {
@@ -251,7 +172,49 @@
 
             });
 
+            $('select[name="trimestre"]').change(function(e) {
 
+                e.preventDefault();
+                var trimestre = $("select[name='trimestre'] option:selected").attr("id");
+                var table = $('#ma_table_Collaborateurs');
+
+                var path_vente = '{{ path("export-csv-trim", {'slug': 'vente', 'trimestre': '00'}) }}';
+                var path_mandat = '{{ path("export-csv-trim", {'slug': 'mandat', 'trimestre': '00'}) }}';
+
+                if(trimestre === 'periode')
+                {
+                    var url_vente = '{{ path('export-csv-slug', {'slug': 'vente'}) }}';
+                    var url_mandat = '{{ path('export-csv-slug', {'slug': 'mandat'}) }}';
+                }
+                else
+                {
+                    var url_vente = path_vente.replace("00", trimestre);
+                    var url_mandat = path_mandat.replace("00", trimestre);
+                }
+
+                jQuery.ajax({
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    url : '{{ path('admin') }}',
+                    type : 'POST',
+                    data : {
+                        trimestre : trimestre
+                    },
+                    success: function(data)
+                    {
+                        table.html(data);
+                        $('#lien').attr('href',url_vente);
+                        $('#lien_mandat').attr('href',url_mandat);
+                    },
+                    error: function(jqxhr)
+                    {
+                        alert(jqxhr.responseText);
+                    }
+                });
+
+
+            });
 
 
 
