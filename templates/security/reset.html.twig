@@ -18,30 +18,22 @@
         {% endif %}
     </div>
 
-    <img style="right: 0; padding-bottom: 170px; position: fixed;" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
-    <div id="reset" class="card">
-        <center>
-            </br>
-            <img src="{{ asset('assets/images/logo_couleur.svg') }}" alt="logo" width="300" height="75">
-            </br>
-        </center>
-        <div class="card-body">
+    <img class="logo_blanc" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
+    <div class="card login">
+        <img src="{{ asset('assets/images/logo_couleur.svg') }}" alt="logo" width="300" height="75">
+        <div class="card-body mt-5">
             <form action="" method="POST">
-                <div class="form-group">
+                <div class="form-group mb-5">
                     <input type="password" name="password" class="form-control" placeholder="Saissisez votre nouveau mot de passe" required>
-                </div></br>
-                <div class="form-group">
+                </div>
+                <div class="form-group mt-5">
                     <input type="password" name="confirm_password" class="form-control" placeholder="Confirmez votre nouveau mot de passe" required>
                 </div>
-                <center></br>
-                    <button id="boutons" style="background-color: #9D1458;" type="submit" class="btn btn-light"><span style="color: white;">Valider</span></button>
-                </center>
+                <button id="security_button" type="submit" class="btn btn-light">Valider</button>
             </form>
         </div>
-    </div>
+        <p id="fin">Powered by Pepperbay</p>
 
-    <div id="fin">
-        <p style="color: white;">Powered by Pepperbay</p>
     </div>
 
 {% endblock %}

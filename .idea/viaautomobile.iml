@@ -122,5 +122,6 @@
     <orderEntry type="library" name="toastr" level="application" />
     <orderEntry type="library" name="toastr.js" level="application" />
     <orderEntry type="library" name="jquery-3.2.1" level="application" />
+    <orderEntry type="library" name="toastr.js" level="application" />
   </component>
 </module>

@@ -12,24 +12,28 @@ html, body
     background-size: cover;
 }
 
-#p1
+.logo_blanc
+{
+    right: 0;
+    top: 0;
+    position: fixed;
+    padding-bottom: 170px;
+}
+
+#home_title
 {
     color: white;
     font-size: 5em;
-    font-weight: thin;
+    font-weight: bolder;
+    display: block;
 }
 
-#p2
+#home_title > span
 {
     color: white;
-    font-size: 5em;
-    font-weight: 900;
-    font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
-}
-
-p
-{
-    color: white;
+    font-weight: normal;
+    display: block;
+    padding-bottom: 20px;
 }
 
 #fin
@@ -52,6 +56,18 @@ p
     left:0;
     right: 0;
     margin: auto;
+    padding-left: 40px;
+}
+
+.home_link
+{
+    background: transparent;
+    border-radius: 24px;
+    padding-right: 40px;
+    border-color: #fff;
+    padding-left: 40px;
+    margin-left: 20px;
+    color: white;
 }
 
 a
@@ -65,33 +81,8 @@ a:hover
     color: black;
 }
 
-#boutons
-{
-    border: 0;
-    border-radius: 24px;
-    padding-right: 50px;
-    padding-left: 50px;
-}
 
-#inscription, #connexion
-{
-    background: transparent;
-    border-radius: 24px;
-    padding-right: 40px;
-    border-color: #fff;
-    padding-left: 40px;
-    margin-left: 20px;
-    color: white;
-}
-
-#inscription:hover, #connexion:hover
-{
-    background-color: white;
-    transition: 0.25s;
-    color: black;
-}
-
-/* Page de création de compte */
+/* Page de login et creation de compte */
 
 .form-control
 {
@@ -106,6 +97,11 @@ a:hover
     font-size: 15px;
 }
 
+.form-error-message
+{
+    color: red;
+}
+
 .form-control:focus {
     color: #495057;
     background-color: #fff;
@@ -115,11 +111,11 @@ a:hover
     box-shadow: 0 0 0 0rem rgba(255,255,255);
 }
 
-.card
+.login
 {
     position: absolute;
-    width: 35%;
-    height: 60%;
+    width: 25%;
+    height: 45%;
     top: 0;
     bottom: 0;
     left: 0;
@@ -128,7 +124,16 @@ a:hover
     border-radius: 15px;
 }
 
-#creation_compte
+.card > img, .creation_compte > img
+{
+    position: relative;
+    top: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.creation_compte
 {
     position: absolute;
     width: 30%;
@@ -143,9 +148,25 @@ a:hover
     border-radius: 15px;
 }
 
+#security_button
+{
+    position: absolute;
+    margin: auto;
+    border: 0;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    border-radius: 24px;
+    padding-right: 50px;
+    padding-left: 50px;
+    background-color: #9D1458;
+    margin-top: 20px;
+    color: white;
+}
+
 /* Login, Validation de compte, mot de passe oublié et le reset de mot de passe */
 
-#login, #validate_account, #forgotpassword, #reset
+#validate_account, #forgotpassword, #reset
 {
     position: absolute;
     width: 25%;
@@ -291,45 +312,6 @@ span
 tr, td
 {
     color: #531B51;
-}
-
-/* Les popups */
-
-/*-----------------------------------------------*/
-
-#fade { /*--Masque opaque noir de fond--*/
-    display: none; /*--masqué par défaut--*/
-    background: #000;
-    position: fixed; left: 0; top: 0;
-    width: 100%; height: 100%;
-    opacity: .80;
-    z-index: 9999;
-}
-.popup_block{
-    display: none; /*--masqué par défaut--*/
-    background: #fff;
-    padding: 20px;
-    float: left;
-    font-size: 12px;
-    position: fixed;
-    top: 50%; left: 50%;
-    z-index: 99999;
-    /*--Les différentes définitions de Box Shadow en CSS3--*/
-    -webkit-box-shadow: 0px 0px 20px #000;
-    -moz-box-shadow: 0px 0px 20px #000;
-    box-shadow: 0px 0px 20px #000;
-    /*--Coins arrondis en CSS3--*/
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-}
-
-/*--Gérer la position fixed pour IE6--*/
-*html #fade {
-    position: absolute;
-}
-*html .popup_block {
-    position: absolute;
 }
 
 .bouton1

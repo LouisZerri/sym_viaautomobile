@@ -2,30 +2,17 @@
 
 {% block body %}
 
-    <style>
-        .form-error-message
-        {
-            color: red;
-        }
-    </style>
+    <img class="logo_blanc" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
 
-    <img style="right: 0; padding-bottom: 170px; opacity: 50%; position: fixed;" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
     <div class="container">
-        <div id="creation_compte" class="card">
-            <center>
-            </br>
-                <img src="{{ asset('assets/images/logo_couleur.svg') }}" alt="logo" width="300" height="75">
-                </br>
-            </center>
-            <div class="card-body">
-                <center><h5><b>CRÉATION DE COMPTE</b></h5></center></br>
+        <div class="card creation_compte">
+            <img src="{{ asset('assets/images/logo_couleur.svg') }}" alt="logo" width="300" height="75">
+            <div class="card-body mt-4">
+                <h5 class="text-center mb-4"><b>CRÉATION DE COMPTE</b></h5>
                 {% include 'security/layout/form.html.twig' %}
             </div>
         </div>
-    </div>
-
-    <div id="fin">
-        <p>Powered by Pepperbay</p>
+        <p id="fin">Powered by Pepperbay</p>
     </div>
 
 {% endblock %}

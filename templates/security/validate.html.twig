@@ -2,25 +2,15 @@
 
 {% block body %}
 
-    <img style="right: 0; padding-bottom: 170px; opacity: 50%; position: fixed;" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
+    <img class="logo_blanc" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
 
-    <div  id="validate_account" class="card">
-        <center>
-            </br>
-            <img src="{{ asset('assets/images/logo_couleur.svg') }}" alt="logo" width="300" height="75">
-        </center>
+    <div class="card login">
+        <img src="{{ asset('assets/images/logo_couleur.svg') }}" alt="logo" width="300" height="75">
         <div class="card-body">
-            </br>
-            <center>
-                <b>Merci pour votre inscription</b></br></br>
-                <p style="color: black;">Un email de confirmation a été envoyé</br>à votre adresse email</p>
-            </center>
+            <p class="text-center mt-5"><b>Merci pour votre inscription</b></p>
+            <p class="text-center mt-5">Un email de confirmation a été envoyé</br>à votre adresse email</p>
         </div>
+        <p id="fin">Powered by Pepperbay</p>
     </div>
-
-    <div id="fin">
-        <p style="color: white;">Powered by Pepperbay</p>
-    </div>
-
 
 {% endblock %}

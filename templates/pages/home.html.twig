@@ -3,29 +3,20 @@
 {% block body %}
 
 
-    <img style="right: 0; padding-bottom: 170px; position: fixed;" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
+    <img class="logo_blanc" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
 
-    <div class="container">
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success mt-5">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        {% endfor %}
-    </div>
+    {% include 'notifications/notification.html.twig' %}
 
     <div class="index">
-        <div style="padding-left: 20px;">
-            <span id="p1">CHALLENGEZ</span></br>
-            <span id="p2">VOS COLLABORATEURS</span>
-        </div></br>
-        <a id="connexion" class="btn btn-light" href="{{ path('security_login') }}" role="button">Connexion</a>
-        <a id="inscription" class="btn btn-light" href="{{ path('security_registration') }}" role="button">Inscription</a>
+
+        <span id="home_title">CHALLENGEZ <span>VOS COLLABORATEURS</span></span>
+
+        <a class="btn btn-light home_link" href="{{ path('security_login') }}" role="button">Connexion</a>
+        <a class="btn btn-light home_link" href="{{ path('security_registration') }}" role="button">Inscription</a>
+
+        <p id="fin">Powered by Pepperbay</p>
+
     </div>
 
-    <div id="fin">
-        <p>Powered by Pepperbay</p>
-    </div>
+
 {% endblock %}
