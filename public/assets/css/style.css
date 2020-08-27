@@ -111,7 +111,7 @@ a:hover
     box-shadow: 0 0 0 0rem rgba(255,255,255);
 }
 
-.login
+.security_card
 {
     position: absolute;
     width: 25%;
@@ -164,24 +164,9 @@ a:hover
     color: white;
 }
 
-/* Login, Validation de compte, mot de passe oublié et le reset de mot de passe */
-
-#validate_account, #forgotpassword, #reset
-{
-    position: absolute;
-    width: 25%;
-    height: 45%;
-    top:0;
-    bottom:0;
-    left:0;
-    right: 0;
-    margin: auto;
-    border-radius: 15px;
-}
-
 /* Page d'accueil */
 
-#card-accueil
+.accueil
 {
     position: absolute;
     width: 35%;
@@ -192,6 +177,27 @@ a:hover
     right: 0;
     margin: auto;
     border-radius: 15px;
+}
+
+.accueil > .card-body > span
+{
+    color: #531B51;
+    display: block;
+    margin-top: 40px;
+}
+
+.btn-secondary
+{
+    background-color: #754974;
+    border-radius: 12px;
+}
+
+.btn-secondary:hover
+{
+    transition: 0.5s;
+    background-color: #531B51;
+    border-radius: 12px;
+
 }
 
 /* Dashboard */

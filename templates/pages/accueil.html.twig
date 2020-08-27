@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <img style="right: 0; padding-bottom: 170px; position: fixed;" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
+    <img class="logo_blanc" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
 
     {% if challenge.imageAccueil %}
         <style>
@@ -15,23 +15,19 @@
         </style>
     {% endif %}
 
-
-    <div id="card-accueil" class="card">
+    <div class="card accueil">
         <div class="card-body">
-            <img src="{{ asset('assets/images/logo_final.png') }}" alt="logo" width="200"></br></br>
-            <span style="color: #531B51;" class="card-text"><b>Bonjour {{ app.user.prenom }} {{ app.user.nom }} !</b></span></br>
-            <span style="color: #531B51;" >Que souhaitez-vous faire ?</span>
+            <img src="{{ asset('assets/images/logo_final.png') }}" alt="logo" width="200">
+            <span class="card-text"><b>Bonjour {{ app.user.prenom }} {{ app.user.nom }} !</b></br>Que souhaitez-vous faire ?</span>
         </div>
-        <div style="padding-left: 20px;" class="row">
+        <div class="row">
             <div class="col">
-                <a style="text-decoration: none; border: 1px solid #531B51; border-radius: 12px;" class="btn btn-light" href="{{ path('dashboard')}}" role="button"><span style="color: #531B51;">Tableau de bord</span></a>
+                <a class="btn btn-secondary mb-5 ml-3" href="{{ path('dashboard')}}" role="button">Tableau de bord</a>
             </div>
-            <div style="padding-left: 290px;" class="col">
-                <a style="text-decoration: none; border: 1px solid #531B51; border-radius: 12px;" class="btn btn-light" href="{{ path('security_logout')}}" role="button"><span style="color: #531B51;">Se déconnecter</span></a>
+            <div class="col text-right mr-3">
+                <a class="btn btn-secondary" href="{{ path('security_logout')}}" role="button">Se déconnecter</a>
             </div>
-            </br>
         </div>
-        </br></br>
     </div>
 
-{% endblock body %}
+{% endblock %}
