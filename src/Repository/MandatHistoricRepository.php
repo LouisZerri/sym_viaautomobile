@@ -22,7 +22,7 @@ class MandatHistoricRepository extends ServiceEntityRepository
     public function getMonthFromMandat($mois, $nom)
     {
         return $this->createQueryBuilder('m')
-            ->select('m.date_mandat, m.nombre')
+            ->select('m.id, m.date_mandat as date, m.nombre')
             ->leftJoin('m.users', 'user')
             ->andWhere('user.email = :val')
             ->andWhere('SUBSTRING(m.date_mandat, 6, 2) = :value')
@@ -40,6 +40,16 @@ class MandatHistoricRepository extends ServiceEntityRepository
             ->leftJoin('h.users', 'u')
             ->groupBy('h.users')
             ->orderBy('nombre', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function myFindAll($user)
+    {
+        return $this->createQueryBuilder('h')
+            ->select('h.id, h.date_mandat as date, h.nombre')
+            ->andWhere('h.users = :val')
+            ->setParameter('val', $user)
             ->getQuery()
             ->getResult();
     }

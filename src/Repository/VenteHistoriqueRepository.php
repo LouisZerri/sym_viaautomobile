@@ -22,7 +22,7 @@ class VenteHistoriqueRepository extends ServiceEntityRepository
     public function getMonthFromVente($mois, $nom)
     {
         return $this->createQueryBuilder('v')
-            ->select('v.id, v.date_vente, v.immatriculation, v.livree, v.frais_mer, v.garantie, v.financement')
+            ->select('v.id, v.date_vente as date, v.immatriculation, v.livree, v.frais_mer as fraisMER, v.garantie, v.financement')
             ->leftJoin('v.users', 'user')
             ->andWhere('user.email = :val')
             ->andWhere('SUBSTRING(v.date_vente, 6, 2) = :value')
@@ -31,6 +31,16 @@ class VenteHistoriqueRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
+    }
+
+    public function myFindAll($user)
+    {
+        return $this->createQueryBuilder('v')
+            ->select('v.id, v.date_vente as date, v.immatriculation, v.livree, v.frais_mer as fraisMER, v.garantie, v.financement')
+            ->andWhere('v.users = :val')
+            ->setParameter('val', $user)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

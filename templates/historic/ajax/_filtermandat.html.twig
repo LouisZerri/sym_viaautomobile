@@ -1,0 +1,32 @@
+{% if mandats is not empty %}
+    <table id="ma_table_Mandats" class="table table-striped ml-5 mt-5">
+        <thead>
+        <th align="center" scope="col">Date</th>
+        <th align="center" scope="col">Nombre de mandats</th>
+        <th align="center" scope="col">Actions</th>
+        </thead>
+        <tbody>
+        {% for mandat in mandats %}
+            <tr id="date" align="center">
+                <td id="mydate" align="center">{{ mandat.date | date('d/m/Y') }}</td>
+                <td align="center">{{ mandat.nombre }}</td>
+                {% if 'now'|date('m') != mandat.date | date('m') %}
+                    <td align="center"><a style="color: black;"><i class="fa fa-times"/></a></td>
+                {% else %}
+                    <td align="center">
+                        <a class="btn btn-link js-delete" href="{{ path('historique_mandat', {id: mandat.id}) }}" style="color: black; z-index: 200;">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else%}
+    <div class="container">
+        <div style="font-size: 15px; width: 725px; top: 150px; right: 10px;" class="alert alert-warning" role="alert">
+            <i class="fa fa-warning"></i>&nbsp;&nbsp;Aucune donnée à afficher
+        </div>
+    </div>
+{% endif %}

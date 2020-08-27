@@ -123,7 +123,7 @@ class AdminController extends AbstractController
                 }
             }
 
-            return $this->render('admin/ajax/_filter.html.twig', [
+            return $this->render('admin/ajax/_filtervente.html.twig', [
                 'results' => $result,
                 'mandats' => $resultMandat
             ]);

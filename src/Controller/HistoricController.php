@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Access;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use App\Services\MonthToNumber;
@@ -32,7 +33,6 @@ class HistoricController extends AbstractController
      */
     private $userRepository;
 
-
     /**
      * @var VenteRepository
      */
@@ -44,38 +44,33 @@ class HistoricController extends AbstractController
     private $venteHistoriqueRepository;
 
     /**
-     * @var Security
-     */
-    private $security;
-
-    /**
      * @var EntityManagerInterface
      */
     private $em;
 
     public function __construct(MandatHistoricRepository $mandatHistoriqueRepository,
                                 VenteHistoriqueRepository $venteHistoriqueRepository,
-                                Security $security, EntityManagerInterface $em,
+                                EntityManagerInterface $em,
                                 UserRepository $userRepository,
                                 VenteRepository $venteRepository)
     {
         $this->mandatHistoriqueRepository = $mandatHistoriqueRepository;
         $this->venteHistoriqueRepository = $venteHistoriqueRepository;
         $this->userRepository = $userRepository;
-        $this->security = $security;
         $this->em = $em;
         $this->venteRepository = $venteRepository;
     }
 
     /**
      * @Route("/historique", name="historique")
+     * @return Response
      */
     public function index()
     {
-        $user = $this->security->getUser();
+        $user = $this->getUser();
 
-        $mandats = $this->mandatHistoriqueRepository->findBy(['users' => $user]);
-        $ventes = $this->venteHistoriqueRepository->findBy(['users' => $user]);
+        $mandats = $this->mandatHistoriqueRepository->myFindAll($user);
+        $ventes = $this->venteHistoriqueRepository->myFindAll($user);
 
         return $this->render('historic/historique.html.twig', [
             'mandats' => $mandats,
@@ -90,12 +85,7 @@ class HistoricController extends AbstractController
      */
     public function deleteMandatFromHistorique(MandatHistoric $mandatHistoric)
     {
-        $user = $this->security->getUser();
-
-        if($user == null)
-        {
-            return $this->json(['code' => 403, 'message' => 'Unauthorized'], 403);
-        }
+        $user = $this->getUser();
 
         $mandat = $this->mandatHistoriqueRepository
             ->findOneBy([
@@ -123,12 +113,7 @@ class HistoricController extends AbstractController
      */
     public function deleteVenteFromHistorique(VenteHistorique $venteHistorique)
     {
-        $user = $this->security->getUser();
-
-        if($user == null)
-        {
-            return $this->json(['code' => 403, 'message' => 'Unauthorized'], 403);
-        }
+        $user = $this->getUser();
 
         $venteFromHistorique = $this->venteHistoriqueRepository
             ->findOneBy([
@@ -146,56 +131,77 @@ class HistoricController extends AbstractController
         $this->em->flush();
 
         return $this->json(['code' => 200, 'message' => 'Ligne supprimée'], 200);
+
     }
 
+    /**
+     * @Route("/historique-vente", name="filtre-vente")
+     * @param Request $request
+     * @param MonthToNumber $monthToNumber
+     * @return Response
+     */
+    public function filtreVente(Request $request, MonthToNumber $monthToNumber)
+    {
+        $user = $this->getUser();
+
+        if($request->isXmlHttpRequest())
+        {
+            $data = $request->request->all();
+
+            $new_data = $monthToNumber->month_to_number($data['mois']);
+
+            if($new_data == 'periode')
+            {
+                $venteFromHistorique = $this->venteHistoriqueRepository
+                    ->myFindAll($user);
+            }
+            else
+            {
+                $venteFromHistorique = $this->venteHistoriqueRepository
+                    ->getMonthFromVente($new_data, $user->getUsername());
+
+            }
+        }
+
+        return $this->render('historic/ajax/_filtervente.html.twig', [
+            'ventes' => $venteFromHistorique,
+        ]);
+    }
 
     /**
      * @param Request $request
-     * @return JsonResponse
-     * @Route("/historique-filtre", name="filter")
+     * @param MonthToNumber $monthToNumber
+     * @return Response
+     * @Route("/historique-mandat", name="filtre-mandat")
      */
-    public function filterVente(Request $request)
+    public function filtreMandat(Request $request, MonthToNumber $monthToNumber)
     {
-        $user = $this->security->getUser();
+        $user = $this->getUser();
 
-        if($user == null)
-        {
-            return $this->json(['code' => 403, 'message' => 'Unauthorized'], 403);
-        }
-
-        $monthToNumber = new MonthToNumber();
-
-        if($request->getMethod() == 'POST')
+        if($request->isXmlHttpRequest())
         {
             $data = $request->request->all();
+
             $new_data = $monthToNumber->month_to_number($data['mois']);
 
+            if($new_data == 'periode')
+            {
+                $mandatFromHistorique = $this->mandatHistoriqueRepository
+                    ->myFindAll($user);
+            }
+            else
+            {
+                $mandatFromHistorique = $this->mandatHistoriqueRepository
+                    ->getMonthFromMandat($new_data, $user->getUsername());
+
+            }
         }
 
-
-        if($new_data == 'Période')
-        {
-            $venteFromHistorique = $this->venteHistoriqueRepository->findAll();
-            $mandatFromHistorique = $this->mandatHistoriqueRepository->findAll();
-
-        }
-        else
-        {
-            $venteFromHistorique = $this->venteHistoriqueRepository
-                ->getMonthFromVente($new_data, $user->getUsername());
-
-            $mandatFromHistorique = $this->mandatHistoriqueRepository
-                ->getMonthFromMandat($new_data, $user->getUsername());
-        }
-
-
-        return $this->json(['code' => 200,
-                            'message' => 'Données récupérées',
-                            'ventes' => $venteFromHistorique,
-                            'mandats' => $mandatFromHistorique
-        ], 200);
-
+        return $this->render('historic/ajax/_filtermandat.html.twig', [
+            'mandats' => $mandatFromHistorique,
+        ]);
     }
+
 
 
 }

@@ -80,7 +80,7 @@
                     </select>
                 </div>
             </form>
-            <form id="myform" action="{{ path('filter') }}" method="POST">
+            <form action="" method="POST">
                 <div class="form-group">
                     <select name="mois" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
                         <option id="periode" selected="selected"><span>Période</span></option>
@@ -99,70 +99,11 @@
                     </select>
                 </div>
             </form>
-    </div>
+        </div>
 
-        {% if mandats is not empty or ventes is not empty %}
+        {% include 'historic/ajax/_filtervente.html.twig' %}
+        {% include 'historic/ajax/_filtermandat.html.twig' %}
 
-            <table id="ma_table_Ventes" class="table table-striped ml-5 mt-5">
-                <thead>
-                    <tr>
-                        <th scope="col">Date de vente</th>
-                        <th scope="col">Immatriculation</th>
-                        <th scope="col">Livraisons</th>
-                        <th scope="col">FMS</th>
-                        <th scope="col">Garanties</th>
-                        <th scope="col">Financements</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for vente in ventes %}
-                        <tr id="date" align="center">
-                            <td id="mydate" align="center">{{ vente.dateVente | date('d/m/Y') }}</td>
-                            <td align="center">{{ vente.immatriculation }}</td>
-                            <td align="center">{{ vente.livree }}</td>
-                            <td align="center">{{ vente.fraisMER }}</td>
-                            <td align="center">{{ vente.garantie }}</td>
-                            <td align="center">{{ vente.financement }}</td>
-                            {% if 'now'|date('m') != vente.dateVente | date('m') %}
-                                <td align="center"><a style="color: black;"><i class="fa fa-times"/></a></td>
-                            {% else %}
-                                <td align="center">
-                                    <a class="btn btn-link js-delete" href="{{ path('historique_vente', {id: vente.id}) }}" style="color: black; z-index: 200;">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-            <table id="ma_table_Mandats" class="table table-striped ml-5 mt-5">
-                <thead>
-                <th align="center" scope="col">Date</th>
-                <th align="center" scope="col">Nombre de mandats</th>
-                <th align="center" scope="col">Actions</th>
-                </thead>
-                <tbody>
-                {% for mandat in mandats %}
-                    <tr id="date" align="center">
-                        <td id="mydate" align="center">{{ mandat.dateMandat | date('d/m/Y') }}</td>
-                        <td align="center">{{ mandat.nombre }}</td>
-                        {% if 'now'|date('m') != mandat.dateMandat | date('m') %}
-                            <td align="center"><a style="color: black;"><i class="fa fa-times"/></a></td>
-                        {% else %}
-                            <td align="center">
-                                <a class="btn btn-link js-delete" href="{{ path('historique_mandat', {id: mandat.id}) }}" style="color: black; z-index: 200;">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% endif %}
     </div>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
@@ -187,7 +128,7 @@
                     },
                     error: function(jqxhr)
                     {
-                        alert(jqxhr.responseText);
+                        console.log(jqxhr.responseText);
                     }
                 });
             });
@@ -200,72 +141,41 @@
 
                 var select = $("select[name='monselect']").val();
 
+                var tableVente = $("#ma_table_Ventes");
+                var tableMandat = $("#ma_table_Mandats");
+
                 if(select === "Ventes")
                 {
                     jQuery.ajax({
-                        url: '{{ path('filter') }}',
+                        url: '{{ path('filtre-vente') }}',
                         type: 'POST',
                         data: {
                             mois: mois
                         },
                         success: function (data) {
-                            var date = [];
-                            data.ventes.forEach((value) => {
-                                date.push(value.date_vente.substring(0, 10).split("-").reverse().join("-").replace(/-/g,"/"));
-                            })
-
-                            $('#ma_table_Ventes tbody').each(function() {
-                                $(this).find('#date').each (function() {
-                                    $(this).find('#mydate').each (function() {
-                                        if (!date.includes($(this).html())) {
-
-                                            $(this).parents('tr:first').fadeOut(500);
-                                        }
-                                    });
-
-                                });
-                            });
-
+                            tableVente.html(data);
                         },
                         error: function (jqxhr) {
-                            alert(jqxhr.responseText);
+                            console.log(jqxhr.responseText);
                         }
                     });
 
                 }else if(select === "Mandats")
                 {
                     jQuery.ajax({
-                        url: '{{ path('filter') }}',
+                        url: '{{ path('filtre-mandat') }}',
                         type: 'POST',
                         data: {
                             mois: mois
                         },
                         success: function (data) {
-                            var date = [];
-                            data.mandats.forEach((value) => {
-                                date.push(value.date_mandat.substring(0, 10).split("-").reverse().join("-").replace(/-/g,"/"));
-                            })
-
-                            $('#ma_table_Mandats tbody').each(function() {
-                                $(this).find('#date').each (function() {
-                                    $(this).find('#mydate').each (function() {
-                                        if (!date.includes($(this).html())) {
-
-                                            $(this).parents('tr:first').fadeOut(500);
-                                        }
-                                    });
-
-                                });
-                            });
-
+                            tableMandat.html(data);
                         },
                         error: function (jqxhr) {
-                            alert(jqxhr.responseText);
+                            console.log(jqxhr.responseText);
                         }
                     });
                 }
-
-
 
             });
 
