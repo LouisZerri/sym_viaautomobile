@@ -1,42 +1,32 @@
 {% block body %}
 
-<style>
-    html, body
-    {
-        font-family: 'Montserrat', serif;
-        background: white;
-    }
-
-    li
-    {
-        list-style-type: none;
-    }
-
-    a
-    {
-        text-decoration: none;
-    }
-</style>
-
-
-<div class="separation"></div>
 <div class="menu">
-    </br>
-    </br>
-    <a href="{{ path('accueil') }}"><img style="padding-left: 35px;" src="{{ asset('assets/images/logo_final.png') }}" alt="logo" width="250"></a></br></br></br>
-    <p style="padding-left: 45px; color: #531B51;">Bonjour <b>{{ app.user.prenom }} {{ app.user.nom }}</b></p>
-    </br>
-    <ul>
-        <li><a style="text-decoration: none;" id="change" href="{{ path('challenges') }}"><i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;Les challenges</a></li></br>
-        <li><a id="change" href="{{ path('dashboard') }}"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Mon tableau de bord</a></li></br>
-        <li><a id="change" href="{{ path('historique') }}"><i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;Historique</a></li></br>
-            {% if is_granted('ROLE_ADMIN') %}
-                <li><a id="change" href="{{ path('admin') }}"><i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp;Administration</a></li></br>
-            {% endif %}
-        <li><a id="change" href="{{ path('edit_account') }}"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Paramètres du compte</a></li></br>
-        <li><a id="change" href="{{ path('security_logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Deconnexion</a></li></br>
+    <a href="{{ path('accueil') }}"><img class="logo_app mt-5 mb-5" src="{{ asset('assets/images/logo_final.png') }}" alt="logo" width="250"></a>
+    <p class="text-center text-viaautomobile">Bonjour <b>{{ app.user.prenom }} {{ app.user.nom }}</b></p>
+
+    <ul class="slide mb-4">
+        <li class="mt-5">
+            <a class="change" href="{{ path('challenges') }}"><i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;Les challenges</a>
+        </li>
+        <li class="mt-4">
+            <a class="change" href="{{ path('dashboard') }}"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Mon tableau de bord</a>
+        </li>
+        <li class="mt-4">
+            <a class="change" href="{{ path('historique') }}"><i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;Historique</a>
+        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="mt-4">
+                <a class="change" href="{{ path('admin') }}"><i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp;Administration</a>
+            </li>
+        {% endif %}
+        <li class="mt-4">
+            <a class="change" href="{{ path('edit_account') }}"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Paramètres du compte</a>
+        </li>
+        <li class="mt-4">
+            <a class="change" href="{{ path('security_logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Deconnexion</a>
+        </li>
     </ul>
-    <img style="position: fixed; left: 0; bottom: 0; padding-left: 15px;" src="{{ asset('assets/images/logo_gris.svg') }}" alt="logo" width="230">
+    <img class="logo_gris" src="{{ asset('assets/images/logo_gris.svg') }}" alt="logo" width="230">
 </div>
 
 {% endblock %}

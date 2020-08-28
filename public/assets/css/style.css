@@ -10,6 +10,7 @@ html, body
     list-style-type: none;
     -webkit-background-size: cover;
     background-size: cover;
+    overflow-x: hidden;
 }
 
 .logo_blanc
@@ -202,14 +203,23 @@ a:hover
 
 /* Dashboard */
 
-.menu
+.logo_gris
 {
-    width: 300px;
-    height: 400px;
-    float: left;
-    position: fixed;
-    z-index: 10;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding-left: 15px;
+}
 
+.text-viaautomobile
+{
+    color: #531B51;
+}
+
+.logo_app
+{
+    padding-left: 35px;
+    padding-top: 20px;
 }
 
 #colonne1
@@ -262,26 +272,20 @@ a:hover
     background:  #531B51;
 }
 
-li
-{
-    list-style-type: none;
-    position:relative;
-    z-index:10;
-}
 
 span
 {
     color: white;
 }
 
-#change
+.change
 {
     color: #531B51;
     text-decoration: none;
     list-style-type: none;
 }
 
-#change:hover
+.change:hover
 {
     color: white;
     transition:all 0.10s;
@@ -290,14 +294,7 @@ span
     border-radius: 20px;
     background: #754974;
     position:relative;
-    z-index:10;
-}
-
-#semaine
-{
-    margin-left: 0px;
-    padding-top: 50px;
-    font-size: 30px;
+    text-decoration: none;
 }
 
 #dont

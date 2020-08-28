@@ -2,15 +2,9 @@
 
 {% block body %}
 
-    {% include 'layout/menu.html.twig' %}
+
 
     <style>
-        #semaine
-        {
-            font-size: 30px;
-            padding-left: 150px;
-
-        }
 
         #colonne1 {
             position: absolute;
@@ -92,11 +86,13 @@
         }
     </style>
 
+    {% include 'layout/navbar.html.twig' %}
     {% include 'layout/notification.html.twig' %}
 
+    {% include 'layout/menu.html.twig' %}
+
     <center>
-        <div class="container mt-1">
-            <p style="color: #531B51;" id="semaine">{{ semaine }}</p>
+        <div class="container app mt-1">
             <div class="row ml-4">
                 <div class="col" id="colonne1">
                     <h3 style="color: #531B51;"><b>NOMBRE DE MANDATS</b></h3>

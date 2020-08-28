@@ -270,7 +270,6 @@ class DashboardController extends AbstractController
     }
 
 
-
     /**
      * @Route("/tableau-de-bord", name="dashboard")
      * @param Request $request
