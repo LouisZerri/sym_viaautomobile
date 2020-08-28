@@ -1,16 +1,4 @@
-{% if app.request.attributes.get('_route') == 'dashboard' %}
-    <div class="container">
-        {% for message in app.flashes('success') %}
-            {% if message == 'Vente ajoutée avec succès' %}
-                <script> toastr.success('Vente ajoutée avec succès'); </script>
-            {% elseif message == 'Mandat ajouté avec succès' %}
-                <script> toastr.success('Mandat ajouté avec succès'); </script>
-            {% elseif message == 'Votre compte a été modifié avec succès' %}
-                <script> toastr.success('Compte modifié avec succès'); </script>
-            {% endif %}
-        {% endfor %}
-    </div>
-{% elseif app.request.attributes.get('_route') == 'admin-challenges' %}
+{% if app.request.attributes.get('_route') == 'admin-challenges' %}
     <div class="container">
         {% for message in app.flashes('success') %}
             {% if message == 'Challenge crée avec succès' %}

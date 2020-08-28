@@ -203,6 +203,16 @@ a:hover
 
 /* Dashboard */
 
+li
+{
+    list-style-type: none;
+}
+
+a
+{
+    text-decoration: none;
+}
+
 .logo_gris
 {
     position: absolute;
@@ -216,113 +226,130 @@ a:hover
     color: #531B51;
 }
 
+.fs-1
+{
+    font-size: 0.938em;
+}
+
+.fs-2
+{
+    font-size: 2em;
+}
+
+.fs-7
+{
+    font-size: 7em;
+}
+
 .logo_app
 {
     padding-left: 35px;
     padding-top: 20px;
 }
 
-#colonne1
+.row-dashboard
+{
+    text-align: center;
+}
+
+.dashboard-col
+{
+    zoom:125%;
+    margin-top: 70px;
+    margin-right: 50px;
+}
+
+.dashboard-button, .dashboard-button:hover
+{
+    background-color: #531B51;
+    border-radius: 12px;
+    color: white;
+    margin-top: 10px;
+}
+
+hr
 {
     position: absolute;
-    width: 60%;
-    height: 60%;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    margin-left: 710px;
+    height: 100%;
+    width: 3px;
+    background:  #531B51;
+}
+
+.dont
+{
+    color: #A73C97;
+    font-size: 30px;
+}
+
+.popup-dashboard, .popup-dashboard:hover
+{
+    background-color: #9D1458;
+    color: white;
+}
+
+.modal-content
+{
+    border-radius: 20px;
+}
+
+/* Les Challenges */
+
+.screen_challenge
+{
+    position: absolute;
     bottom:0;
     left:0;
     top: 0;
     right:0;
     margin: auto;
     margin-left: 100px;
-    margin-bottom: 175px;
+    padding-top: 20px;
+    zoom: 125%;
 }
 
-#colonne2
+.image_challenge
 {
-    position: absolute;
-    width: 38%;
-    height: 59.9%;
-    bottom:0;
-    top: 0;
-    margin: auto;
-    margin-left: 665px;
-    margin-bottom: 180px;
+    border-radius: 10px;
 }
 
-.separation
+.periode
 {
-
-    position: fixed;
-    margin-left: 270px;
-    height: 100%;
-    width: 1px;
-    background: grey;
-    top: 0;
-    bottom: 0;
-    opacity: 0.2;
+    color: #808080;
+    font-size: 12px;
+    display: block;
 }
 
-.separation2
+.description_challenge
 {
-    clear: both;
-    position: absolute;
-    margin-left: 625px;
-    height: 450px;
-    width: 3px;
-    margin-top: 25px;
-    background:  #531B51;
+    color: black;
+    font-size: 15px;
+    display: block;
 }
 
-
-span
+.podium > div > span
 {
-    color: white;
+    color: black;
+    font-size: 13px;
+    display: block;
+    padding-top: 5px;
 }
 
-.change
-{
-    color: #531B51;
-    text-decoration: none;
-    list-style-type: none;
-}
-
-.change:hover
-{
-    color: white;
-    transition:all 0.10s;
-    border:none;
-    padding: 10px 10px 10px 10px;
-    border-radius: 20px;
-    background: #754974;
-    position:relative;
-    text-decoration: none;
-}
-
-#dont
-{
-    color: #A73C97;
-    font-size: 20px;
-}
-
-#screen
-{
-    bottom:0;
-    left:0;
-    top: 0;
-    right:0;
-    margin: auto;
-}
 
 tr, td
 {
     color: #531B51;
 }
 
-.bouton1
+.button-vente
 {
-    width: 65px;
-    height: 65px;
+    width: 75px;
+    height: 75px;
     background:#A73C97;
-    font:bold 50px Montserrat;
+    font:bold 55px Montserrat;
     border-radius:50%;
     border:none;
     color:#fff;

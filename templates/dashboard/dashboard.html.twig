@@ -2,151 +2,57 @@
 
 {% block body %}
 
-
-
-    <style>
-
-        #colonne1 {
-            position: absolute;
-            width: 60%;
-            height: 60%;
-            bottom:0;
-            left:0;
-            top: 0;
-            right:0;
-            margin: auto;
-            margin-left: 50px;
-            margin-bottom: 175px;
-            zoom:125%;
-        }
-
-        #colonne2
-        {
-            position: absolute;
-            width: 38%;
-            height: 59.9%;
-            bottom:0;
-            top: 0;
-            margin: auto;
-            margin-left: 525px;
-            margin-bottom: 175px;
-            zoom:125%;
-        }
-
-        .separation2
-        {
-            clear: both;
-            position: absolute;
-            height: 800px;
-            width: 3px;
-            margin-left: 600px;
-            margin-top: 50px;
-            background:  #531B51;
-        }
-
-        .bouton1
-        {
-            width: 75px;
-            height: 75px;
-            background:#A73C97;
-            font:bold 55px Montserrat;
-            border-radius:50%;
-            border:none;
-            color:#fff;
-        }
-
-        #dont
-        {
-            color: #A73C97;
-            font-size: 30px;
-        }
-
-
-        .separation
-        {
-
-            position: absolute;
-            margin-left: 300px;
-            height: 100%;
-            width: 1px;
-            background: grey;
-            top: 0;
-            bottom: 0;
-            opacity: 0.2;
-        }
-
-        .form-error-message
-        {
-            color: red;
-        }
-
-        p
-        {
-            color: black;
-        }
-    </style>
-
     {% include 'layout/navbar.html.twig' %}
-    {% include 'layout/notification.html.twig' %}
-
     {% include 'layout/menu.html.twig' %}
 
-    <center>
-        <div class="container app mt-1">
-            <div class="row ml-4">
-                <div class="col" id="colonne1">
-                    <h3 style="color: #531B51;"><b>NOMBRE DE MANDATS</b></h3>
-                    <p class="nombre_mandat" style="font-size: 7em; color: #531B51;">{{ mandat ? mandat.nombre : 0 }}</p>
-                    <p style="font-size: 2em; color: #531B51;">Mandats</p></br>
-                    <button style="background-color: #531B51; border-radius: 12px;" class="btn btn-light" role="button" data-toggle="modal" data-target="#mandat"><span>Ajouter Mandats</span></button>
+    <div class="row ml-4 row-dashboard">
+        <div class="col dashboard-col">
+            <h3 class="text-viaautomobile"><b>NOMBRE DE MANDATS</b></h3>
+            <p class="nombre_mandat text-viaautomobile fs-7">{{ mandat ? mandat.nombre : 0 }}</p>
+            <p class="text-viaautomobile fs-2 mb-5">Mandats</p>
+            <button class="btn btn-light dashboard-button" role="button" data-toggle="modal" data-target="#mandat">Ajouter Mandats</button>
+            <hr/>
+        </div>
+        <div class="col dashboard-col">
+            <h3 class="text-viaautomobile"><b>NOMBRE DE VENTES</b></h3>
+            <p id="mesventes" class="text-viaautomobile fs-7">{{ count_vente.vente }}</p>
+            <p class="text-viaautomobile fs-2">Ventes</p>
+            <p class="dont mb-5">dont</p>
+            <div class="row pl-4">
+                <div class="col pl-2">
+                    <button id="bouton1" class="button-vente">{{ count_livree.livree }}</button>
+                    <p>Livraisons</p>
+                </div>
+                <div class="col">
+                    <button id="bouton2" class="button-vente">{{ count_fraisMER.fraisMER }}</button>
+                    <p>Frais de mise en service</p>
+                </div>
+                <div class="col pl-2">
+                    <button id="bouton3" class="button-vente">{{ count_garantie.garantie }}</button>
+                    <p>Garanties</p>
+                </div>
+                <div class="col pl-2">
+                    <button id="bouton4" class="button-vente">{{ count_financement.financement }}</button>
+                    <p>Financements</p>
                 </div>
             </div>
-            <div>
-                <hr class="separation2" />
-            </div>
-            <div id="colonne2" class="col">
-                <center>
-                    <h3 style="color: #531B51;"><b>NOMBRE DE VENTES</b></h3>
-                    <p id="mesventes" style="font-size: 7em; color: #531B51;">{{ count_vente.vente }}</p>
-                    <p style="font-size: 2em; color: #531B51;">Ventes</p>
-                    <p id="dont">dont</p></br>
-                    <div class="row pl-4">
-                        <div class="col pl-2">
-                            <button id="bouton1" class="bouton1">{{ count_livree.livree }}</button>
-                            <span style="color: black;">Livraisons</span>
-                        </div>
-                        <div class="col">
-                            <button id="bouton2" class="bouton1">{{ count_fraisMER.fraisMER }}</button></br>
-                            <span style="color: black;">Frais de mise en service</span>
-                        </div>
-                        <div class="col pl-2">
-                            <button id="bouton3" class="bouton1">{{ count_garantie.garantie }}</button>
-                            <span style="color: black;">Garanties</span>
-                        </div>
-                        <div class="col pl-2">
-                            <button id="bouton4" class="bouton1">{{ count_financement.financement }}</button>
-                            <span style="color: black;">Financements</span>
-                        </div>
-                    </div></br>
-                    <button style="background-color: #531B51; border-radius: 12px;" class="btn btn-light" role="button" data-toggle="modal" data-target="#vente"><span>Ajouter Ventes</span></button>
-                </center>
-            </div>
+            <button class="btn btn-light dashboard-button mt-5" role="button" data-toggle="modal" data-target="#vente">Ajouter Ventes</button>
         </div>
-    </center>
+    </div>
 
     <div class="modal fade" id="mandat" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" style="color: #531B51;">AJOUT DE MANDATS</h2></br>
+                    <h2 class="modal-title text-viaautomobile">AJOUT DE MANDATS</h2>
                 </div>
                 <div class="modal-body">
-                    <p style="font-size: 15px; color: #531B51;">Combien de mandats souhaitez-vous comptabiliser ?</p></br>
+                    <p class="text-viaautomobile fs-1 mb-5">Combien de mandats souhaitez-vous comptabiliser ?</p>
                     {{ form_start(form_mandat) }}
                     {{ form_row(form_mandat.nombre, {'attr': {'placeholder': 'Nombre'}}) }}
                 </div>
                 <div class="modal-footer">
-                    <button rel="popuptrois" id="poplight3" style="background-color: #9D1458;" type="submit" class="btn btn-light" data-dismiss="modal"><span style="color: white;">Ajouter</span></button>
+                    <button rel="popuptrois" id="poplight3" type="submit" class="btn btn-light popup-dashboard" data-dismiss="modal">Ajouter</button>
                     {{ form_end(form_mandat) }}
                 </div>
             </div>
@@ -157,7 +63,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" style="color: #531B51;">AJOUT D'UNE VENTE</h2></br>
+                    <h2 class="modal-title text-viaautomobile">AJOUT D'UNE VENTE</h2>
                 </div>
                 <div class="modal-body">
                     {{ form_start(form_vente) }}
@@ -179,7 +85,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="js-add" style="background-color: #9D1458;" type="submit" class="btn btn-light" data-dismiss="modal"><span style="color: white;">Ajouter</span></button>
+                    <button id="js-add" type="submit" class="btn btn-light popup-dashboard" data-dismiss="modal">Ajouter</button>
                 </div>
             </div>
         </div>

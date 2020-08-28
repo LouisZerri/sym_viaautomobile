@@ -11,12 +11,13 @@
     border-color: #fff rgba(248, 249, 250, 1) #fff #fff;
     transform: translateX(0);
     transition: transform 0.3s;
-    z-index: 2;
+    background-color: white;
 }
 
 .has-sidebar .menu
 {
     transform: translateX(300px);
+    z-index: 10;
 }
 
 .has-sidebar .slide
@@ -35,4 +36,22 @@
     cursor: pointer;
 }
 
+.change
+{
+    color: #531B51;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.change:hover
+{
+    color: white;
+    transition:all 0.10s;
+    border:none;
+    padding: 10px 10px 10px 10px;
+    border-radius: 20px;
+    background: #754974;
+    position:relative;
+    text-decoration: none;
+}
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\ChallengeRepository;
 use App\Repository\MandatRepository;
 use App\Repository\VenteRepository;
+use App\Services\WeekFormat;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Access;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,8 +40,10 @@ class ChallengeController extends AbstractController
     /**
      * @Route("/challenges", name="challenges")
      */
-    public function index()
+    public function index(WeekFormat $weekFormat)
     {
+        $retour = $weekFormat->weekToString(date('Y'), (date('W') - 1));
+
         $challengeEnCours = $this->challengeRepository
             ->findOneBy(['en_cours' => '1']);
 
@@ -144,7 +147,8 @@ class ChallengeController extends AbstractController
             'third_vente' => $enTeteVente[2],
             'first_mandat' => $enTeteMandat[0],
             'second_mandat' => $enTeteMandat[1],
-            'third_mandat' => $enTeteMandat[2]
+            'third_mandat' => $enTeteMandat[2],
+            'semaine' => $retour
         ]);
     }
 }
