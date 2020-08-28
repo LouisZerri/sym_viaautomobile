@@ -1,15 +1,15 @@
 {% if ventes is not empty %}
     <table id="ma_table_Ventes" class="table table-striped ml-5 mt-5">
         <thead>
-        <tr>
-            <th scope="col">Date de vente</th>
-            <th scope="col">Immatriculation</th>
-            <th scope="col">Livraisons</th>
-            <th scope="col">FMS</th>
-            <th scope="col">Garanties</th>
-            <th scope="col">Financements</th>
-            <th scope="col">Actions</th>
-        </tr>
+            <tr>
+                <th scope="col">Date de vente</th>
+                <th scope="col">Immatriculation</th>
+                <th scope="col">Livraisons</th>
+                <th scope="col">FMS</th>
+                <th scope="col">Garanties</th>
+                <th scope="col">Financements</th>
+                <th scope="col">Actions</th>
+            </tr>
         </thead>
         <tbody>
         {% for vente in ventes %}
@@ -21,10 +21,10 @@
                 <td align="center">{{ vente.garantie }}</td>
                 <td align="center">{{ vente.financement }}</td>
                 {% if 'now'|date('m') != vente.date | date('m') %}
-                    <td align="center"><a style="color: black;"><i class="fa fa-times"/></a></td>
+                    <td align="center"><i class="fa fa-times"/></td>
                 {% else %}
                     <td align="center">
-                        <a class="btn btn-link js-delete" href="{{ path('historique_vente', {id: vente.id}) }}" style="color: black; z-index: 200;">
+                        <a class="btn btn-link js-delete" href="{{ path('historique_vente', {id: vente.id}) }}">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>
@@ -36,7 +36,7 @@
 
 {% else%}
     <div class="container">
-        <div style="font-size: 15px; width: 725px; top: 150px; left: 25px;" class="alert alert-warning" role="alert">
+        <div class="alert alert-warning" role="alert">
             <i class="fa fa-warning"></i>&nbsp;&nbsp;Aucune donnée à afficher
         </div>
     </div>

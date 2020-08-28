@@ -8,6 +8,7 @@ use App\Repository\MandatHistoricRepository;
 use App\Repository\UserRepository;
 use App\Repository\VenteHistoriqueRepository;
 use App\Repository\VenteRepository;
+use App\Services\WeekFormat;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Access;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,8 +66,10 @@ class HistoricController extends AbstractController
      * @Route("/historique", name="historique")
      * @return Response
      */
-    public function index()
+    public function index(WeekFormat $weekFormat)
     {
+        $retour = $weekFormat->weekToString(date('Y'), (date('W') - 1));
+
         $user = $this->getUser();
 
         $mandats = $this->mandatHistoriqueRepository->myFindAll($user);
@@ -74,7 +77,8 @@ class HistoricController extends AbstractController
 
         return $this->render('historic/historique.html.twig', [
             'mandats' => $mandats,
-            'ventes' => $ventes
+            'ventes' => $ventes,
+            'semaine' => $retour
         ]);
     }
 

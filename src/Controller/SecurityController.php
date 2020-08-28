@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationType;
 use App\notification\EmailNotification;
 use App\Repository\UserRepository;
+use App\Services\WeekFormat;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as Access;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -246,13 +247,16 @@ class SecurityController extends AbstractController
     /**
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
+     * @param WeekFormat $weekFormat
      * @return Response
      * @Access("has_role('ROLE_USER') or has_role('ROLE_ADMIN')")
      * @Route("/parametre-de-compte", name="edit_account")
      */
-    public function edit(Request $request, UserPasswordEncoderInterface $encoder)
+    public function edit(Request $request, UserPasswordEncoderInterface $encoder, WeekFormat $weekFormat)
     {
         $user = $this->getUser();
+
+        $retour = $weekFormat->weekToString(date('Y'), (date('W') - 1));
 
         $form = $this->createForm(RegistrationType::class, $user);
 
@@ -268,7 +272,8 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('pages/edit_account.html.twig',[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'semaine' => $retour
         ]);
     }
 

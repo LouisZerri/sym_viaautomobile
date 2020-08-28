@@ -273,12 +273,12 @@ class DashboardController extends AbstractController
     /**
      * @Route("/tableau-de-bord", name="dashboard")
      * @param Request $request
+     * @param WeekFormat $weekFormat
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request, WeekFormat $weekFormat)
     {
-        $weektostr = new WeekFormat();
-        $retour = $weektostr->weekToString(date('Y'), (date('W') - 1));
+        $retour = $weekFormat->weekToString(date('Y'), (date('W') - 1));
 
         //Remet les mandats et les ventes à 0 tous les premiers du mois
         if(date("j") == 1 && date("H:i") == '00:00')

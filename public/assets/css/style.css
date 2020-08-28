@@ -85,6 +85,11 @@ a:hover
 
 /* Page de login et creation de compte */
 
+.mypopover > li
+{
+    list-style-type: disc;
+}
+
 .form-control
 {
     margin-left: 20px;
@@ -267,7 +272,7 @@ a
     margin-top: 10px;
 }
 
-hr
+.dashboard-hr
 {
     position: absolute;
     margin: auto;
@@ -277,6 +282,17 @@ hr
     height: 100%;
     width: 3px;
     background:  #531B51;
+}
+
+.button-vente
+{
+    width: 75px;
+    height: 75px;
+    background:#A73C97;
+    font:bold 55px Montserrat;
+    border-radius:50%;
+    border:none;
+    color:#fff;
 }
 
 .dont
@@ -294,6 +310,11 @@ hr
 .modal-content
 {
     border-radius: 20px;
+}
+
+#vente > .modal-dialog
+{
+    min-width: 700px;
 }
 
 /* Les Challenges */
@@ -338,32 +359,74 @@ hr
     padding-top: 5px;
 }
 
+/* Historique */
+
+.historique-container
+{
+    margin-top: 25px;
+}
+
+.historique-select, .historique-select:hover
+{
+    background-color: #531B51;
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: white;
+}
 
 tr, td
 {
     color: #531B51;
+    text-align: center;
 }
 
-.button-vente
+td > i, td > a > i
 {
-    width: 75px;
-    height: 75px;
-    background:#A73C97;
-    font:bold 55px Montserrat;
-    border-radius:50%;
-    border:none;
-    color:#fff;
+    color: black;
 }
 
-.mypopover > li
+.tables
 {
-    list-style-type: disc;
+    zoom: 125%;
+    padding-right: 100px;
 }
 
-#vente > .modal-dialog
+#ma_table_Ventes, #ma_table_Mandats
 {
-    min-width: 700px;
+    display: none;
 }
+
+/* Edit compte */
+
+.card > h4
+{
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.edit-card
+{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 15px;
+    width: 1000px;
+}
+
+.edit-card-body
+{
+    width: 1000px;
+}
+
+
+
+
 
 
 
