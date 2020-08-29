@@ -4,8 +4,8 @@
 
     {% include 'admin/layout/navbar.html.twig' %}
 
-    <div style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
-        <h3 style="color: #531B51;"><b>STATISTIQUE DE SALES CHALLENGE</b></h3>
+    <div class="mt-3 ml-3 mr-3">
+        <h3 class="text-viaautomobile"><b>STATISTIQUE DE SALES CHALLENGE</b></h3>
         <div class="row">
             <div class="col">
                 <form action="" method="POST">
@@ -20,10 +20,10 @@
                     </div>
                 </form>
             </div>
-            <div style="padding-top: 90px;" class="col">
+            <div class="col admin">
                 <form action="" method="POST">
                     <div class="form-group">
-                        <select name="mois" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
+                        <select name="mois" class="historique-select w-50">
                             <option id="periode" selected="selected"><span>Mois</span></option>
                             <option id="01">Janvier</option>
                             <option id="02">Février</option>
@@ -41,10 +41,10 @@
                     </div>
                 </form>
             </div>
-            <div style="padding-top: 90px;" class="col">
-                <form action="filtre_trimestre.php" method="POST">
+            <div class="col admin">
+                <form action="" method="POST">
                     <div class="form-group">
-                        <select name="trimestre" style="width: 50%; background-color: #531B51; color: white;" class="form-control">
+                        <select name="trimestre" class="historique-select w-50">
                             <option id="periode" selected="selected"><span>Trimestre</span></option>
                             <option id="1">Trimestre 1</option>
                             <option id="2">Trimestre 2</option>
@@ -64,8 +64,8 @@
                     <table  class="table table-striped">
                         <thead>
                             <tr>
-                                <th style="text-align: center;" scope="col">Site de rattachement</th>
-                                <th style="text-align: center;" scope="col">Nombre de mandats</th>
+                                <th scope="col">Site de rattachement</th>
+                                <th scope="col">Nombre de mandats</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,8 +82,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th style="text-align: center;" scope="col">Site de rattachement</th>
-                                <th style="text-align: center;" scope="col">Nombre de vente</th>
+                                <th scope="col">Site de rattachement</th>
+                                <th scope="col">Nombre de vente</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,10 +103,10 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="text-align: center;" scope="col">Collaborateurs</th>
-                        <th style="text-align: center;" scope="col">Email </th>
-                        <th style="text-align: center;" scope="col">Nombre de mandats</th>
-                        <th style="text-align: center;" scope="col">Nombre de véhicules vendus</th>
+                        <th scope="col">Collaborateurs</th>
+                        <th scope="col">Email </th>
+                        <th scope="col">Nombre de mandats</th>
+                        <th scope="col">Nombre de véhicules vendus</th>
                     </tr>
                 </thead>
                 <tbody>

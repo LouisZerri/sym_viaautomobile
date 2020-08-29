@@ -4,22 +4,24 @@
 
     {% include 'admin/layout/navbar.html.twig' %}
 
-    <style>
-        html, body
-        {
-            background: url('{{ vich_uploader_asset(challenge, 'imageFile') }}') no-repeat center fixed;
-            -webkit-background-size: cover; /* pour anciens Chrome et Safari */
-            background-size: cover; /* version standardisée */
-        }
+    {% block stylesheets %}
+        <style>
+            html, body
+            {
+                background: url('{{ vich_uploader_asset(challenge, 'imageFile') }}') no-repeat center fixed;
+                -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+                background-size: cover; /* version standardisée */
+            }
 
-    </style>
+        </style>
+
+    {% endblock %}
 
     <div class="container mt-4">
-        <h3 style="color: #531B51;"><b>ÉDITER LE CHALLENGE</b></h3>
+        <h3 class="text-viaautomobile mt-5 mb-5"><b>ÉDITER LE CHALLENGE</b></h3>
         {{ form_start(form) }}
             <div class="card">
-            <h4 style="padding-top: 20px; padding-left: 20px;">Informations générales</h4>
-            <hr>
+            <h4 class="text-viaautomobile">Informations générales</h4><hr/>
             <div class="card-body">
                 <div class="row">
                     <div class="col">
@@ -34,7 +36,7 @@
                     </div>
                 </div>
                 {{ form_row(form.en_cours) }}
-                <button style="background-color: #754974;" type="submit" class="btn btn-light mb-2"><span style="color: white;">Éditer</span></button>
+                <button type="submit" class="btn btn-light light-button mb-2">Éditer</button>
             {{ form_end(form) }}
             </div>
     </div>

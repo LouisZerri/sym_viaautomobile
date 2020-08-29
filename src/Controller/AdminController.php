@@ -131,7 +131,7 @@ class AdminController extends AbstractController
         }
 
 
-        return $this->render('admin/challenges/index.html.twig', [
+        return $this->render('admin/index.html.twig', [
             'results' => $resultByCollaborateur,
             'result_site_mandat' => $resultBySiteForMandat,
             'result_site_vente' => $resultBySiteForVente,
@@ -301,7 +301,7 @@ class AdminController extends AbstractController
         $challenges = $this->challengeRepository
             ->findAll();
 
-        return $this->render('admin/challenges/challenges.html.twig', [
+        return $this->render('admin/challenges/challenge.html.twig', [
             'challenges' => $challenges
         ]);
 

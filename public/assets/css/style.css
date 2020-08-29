@@ -424,6 +424,39 @@ td > i, td > a > i
     width: 1000px;
 }
 
+/* Partie Admin */
+
+.admin
+{
+    padding-top: 90px;
+}
+#ma_table_Collaborateurs
+{
+    padding-top: 30px;
+}
+
+.mytables
+{
+    padding-top: 30px;
+    display: none;
+}
+
+#lien > i, #lien_mandat > i
+{
+    color: #207245;
+}
+
+.form-challenge
+{
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.light-button, .light-button:hover
+{
+    background-color: #754974;
+    color: white;
+}
 
 
 

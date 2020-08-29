@@ -1,18 +1,18 @@
 {% if results or mandats %}
 
-    <div class="mytables" id="ma_table_Collaborateurs">
+    <div id="ma_table_Collaborateurs">
         <div class="row">
             <div class="col-md-6">
                 <table  class="table table-striped">
                     <thead>
                     <tr>
-                        <th style="text-align: center;" scope="col">Collaborateurs</th>
-                        <th style="text-align: center;" scope="col">Site de rattachement</th>
-                        <th style="text-align: center;" scope="col">Nombre de véhicules vendus</th>
-                        <th style="text-align: center;" scope="col">Nombre de livraison</th>
-                        <th style="text-align: center;" scope="col">Nombre de financement</th>
-                        <th style="text-align: center;" scope="col">Nombre de garantie</th>
-                        <th style="text-align: center;" scope="col">Nombre de frais de mise en route</th>
+                        <th scope="col">Collaborateurs</th>
+                        <th scope="col">Site de rattachement</th>
+                        <th scope="col">Nombre de véhicules vendus</th>
+                        <th scope="col">Nombre de livraison</th>
+                        <th scope="col">Nombre de financement</th>
+                        <th scope="col">Nombre de garantie</th>
+                        <th scope="col">Nombre de frais de mise en route</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,8 +49,8 @@
                     </tr>
                     </tbody>
                 </table>
-                <div style="text-align: right;">
-                    <a id="lien" href="{{ path('export-csv-slug', {slug: "vente"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
+                <div class="text-right">
+                    <a id="lien" href="{{ path('export-csv-slug', {slug: "vente"}) }}"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -79,8 +79,8 @@
                     </tr>
                     </tbody>
                 </table>
-                <div style="text-align: right;">
-                    <a id="lien_mandat" href="{{ path('export-csv-slug', {slug: "mandat"}) }}" style="text-align: right; color: black; font-size: 15px; text-decoration: none;"><i style="color: #207245;" class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
+                <div class="text-right">
+                    <a id="lien_mandat" href="{{ path('export-csv-slug', {slug: "mandat"}) }}"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Exporter au format CSV</a>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
 
 {% else%}
     <div class="container">
-        <div style="font-size: 15px; width: 725px; top: 150px; left: 175px;" class="alert alert-warning" role="alert">
+        <div class="alert alert-warning mt-5" role="alert">
             <i class="fa fa-warning"></i>&nbsp;&nbsp;Aucune donnée à afficher
         </div>
     </div>

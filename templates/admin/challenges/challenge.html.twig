@@ -5,9 +5,9 @@
     {% include 'admin/layout/navbar.html.twig' %}
 
     <div class="container mt-4">
-        <h3 style="color: #531B51;"><b>GÉRER LES CHALLENGES</b></h3>
+        <h3 class="text-viaautomobile"><b>GÉRER LES CHALLENGES</b></h3>
 
-        {% include 'layout/notification.html.twig' %}
+        {% include 'admin/challenges/notification/notification.html.twig' %}
 
         <table class="table table-striped mt-5">
             <thead>
@@ -19,10 +19,10 @@
             <tbody>
                 {% for challenge in challenges %}
                     <tr>
-                        <td style="font-size: 20px;"><b>{{ challenge.titre }}</b></td>
+                        <td><b>{{ challenge.titre }}</b></td>
                         <td>
-                            <a href="{{ path('admin-challenge-edit', {id : challenge.id}) }}" class="btn btn-secondary">Editer</a>
-                            <form method="POST" action="{{ path('admin-challenge-delete', {id: challenge.id }) }}" style="display: inline-block" onsubmit="return confirm('Etes-vous vraiment sûr ?')">
+                            <a href="{{ path('admin-challenge-edit', {id : challenge.id}) }}" class="btn btn-primary">Editer</a>
+                            <form method="POST" action="{{ path('admin-challenge-delete', {id: challenge.id }) }}" class="form-challenge" onsubmit="return confirm('Etes-vous vraiment sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE" />
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ challenge.id) }}" />
                                 <button class="btn btn-danger">Supprimer</button>
@@ -32,8 +32,8 @@
                 {% endfor %}
             </tbody>
         </table>
-        <div class="text-right">
-            <a href="{{ path('admin-challenge-new') }}" style="background-color: #754974; color: white;" class="btn btn-light">Créer une nouveau challenge</a>
+        <div class="text-right mt-4">
+            <a href="{{ path('admin-challenge-new') }}" class="btn btn-success">Créer une nouveau challenge</a>
         </div>
     </div>
 

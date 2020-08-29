@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    let sidebarIsOpened = false;
+
     $('.sidebar').click((e) => {
         e.stopPropagation()
         e.preventDefault()

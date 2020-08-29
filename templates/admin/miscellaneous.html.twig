@@ -2,11 +2,11 @@
 
 {% block body %}
 
-    {% include 'layout/navbar.html.twig' %}
+    {% include 'admin/layout/navbar.html.twig' %}
 
-    <div style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
-        <h3 style="color: #531B51; margin-bottom: 70px;"><b>OPÉRATIONS DIVERSES</b></h3>
-        <form style="margin-left: 30px;" id="myform" action="#" method="POST">
+    <div class="mt-5 ml-5">
+        <h3 class="text-viaautomobile mb-5"><b>OPÉRATIONS DIVERSES</b></h3>
+        <form id="myform" action="" method="POST">
             <div class="form-group">
                 <label for="">Mettre les mandats à 0</label>
                 <input type="text" class="form-control" name="mandat">
@@ -28,7 +28,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <button id="js-add" style="background-color: #754974;" type="submit" class="btn btn-light mb-2"><span style="color: white;">Enregistrer</span></button>
+            <button id="js-add" type="submit" class="btn btn-light light-button mb-2">Enregistrer</button>
         </form>
     </div>
 
