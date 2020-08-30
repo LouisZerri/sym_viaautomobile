@@ -114,7 +114,7 @@ a:hover
     border-color: #fff;
     border-bottom: 1px solid #531B51;
     outline: 0;
-    box-shadow: 0 0 0 0rem rgba(255,255,255);
+    box-shadow: 0 0 0 0rem rgb(255,255,255);
 }
 
 .security_card
@@ -261,7 +261,7 @@ a
 {
     zoom:125%;
     margin-top: 70px;
-    margin-right: 50px;
+    margin-right: 90px;
 }
 
 .dashboard-button, .dashboard-button:hover

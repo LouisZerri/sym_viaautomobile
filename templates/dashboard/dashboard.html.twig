@@ -5,7 +5,7 @@
     {% include 'layout/navbar.html.twig' %}
     {% include 'layout/menu.html.twig' %}
 
-    <div class="row ml-4 row-dashboard">
+    <div class="row row-dashboard">
         <div class="col dashboard-col">
             <h3 class="text-viaautomobile"><b>NOMBRE DE MANDATS</b></h3>
             <p class="nombre_mandat text-viaautomobile fs-7">{{ mandat ? mandat.nombre : 0 }}</p>
@@ -36,7 +36,7 @@
                     <p>Financements</p>
                 </div>
             </div>
-            <button class="btn btn-light dashboard-button mt-5" role="button" data-toggle="modal" data-target="#vente">Ajouter Ventes</button>
+            <button class="btn btn-light dashboard-button" role="button" data-toggle="modal" data-target="#vente">Ajouter Ventes</button>
         </div>
     </div>
 

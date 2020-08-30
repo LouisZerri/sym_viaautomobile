@@ -5,52 +5,56 @@
     {% include 'layout/menu.html.twig' %}
     {% include 'layout/navbar.html.twig' %}
 
-    <h3 class="text-viaautomobile mt-4 ml-5"><b>AFFICHER L'HISTORIQUE</b></h3>
-    <h5 class="text-viaautomobile mt-4 ml-5">Choissisez vos filtres :</h5>
-    <div id="select mb-5">
-        <div class="row mt-5 ml-3">
-            <div class="col-sm-2">
-                <form action="" method="POST">
-                    <div class="form-group">
-                        <select class="historique-select" name="monselect">
-                            <option selected="selected"><span>Type d'action</span></option>
-                            <option>Ventes</option>
-                            <option>Mandats</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="col-sm-2">
-                <form action="" method="POST">
-                    <div class="form-group">
-                        <select name="mois" class="historique-select">
-                            <option id="periode" selected="selected"><span>Période</span></option>
-                            <option id="01">Janvier</option>
-                            <option id="02">Février</option>
-                            <option id="03">Mars</option>
-                            <option id="04">Avril</option>
-                            <option id="05">Mai</option>
-                            <option id="06">Juin</option>
-                            <option id="07">Juillet</option>
-                            <option id="08">Août</option>
-                            <option id="09">Septembre</option>
-                            <option id="10">Octobre</option>
-                            <option id="11">Novembre</option>
-                            <option id="12">Décembre</option>
-                        </select>
-                    </div>
-                </form>
+    <div class="mobile">
+        <h3 class="text-viaautomobile mt-4 ml-5"><b>AFFICHER L'HISTORIQUE</b></h3>
+        <h5 class="text-viaautomobile mt-4 ml-5">Choissisez vos filtres :</h5>
+        <div id="select mb-5">
+            <div class="row mt-5 ml-3">
+                <div class="col-sm-2">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <select class="historique-select mobile-select-1" name="monselect">
+                                <option selected="selected"><span>Type d'action</span></option>
+                                <option>Ventes</option>
+                                <option>Mandats</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <select name="mois" class="historique-select mobile-select-2">
+                                <option id="periode" selected="selected"><span>Période</span></option>
+                                <option id="01">Janvier</option>
+                                <option id="02">Février</option>
+                                <option id="03">Mars</option>
+                                <option id="04">Avril</option>
+                                <option id="05">Mai</option>
+                                <option id="06">Juin</option>
+                                <option id="07">Juillet</option>
+                                <option id="08">Août</option>
+                                <option id="09">Septembre</option>
+                                <option id="10">Octobre</option>
+                                <option id="11">Novembre</option>
+                                <option id="12">Décembre</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+
+        <div class="tablesVente">
+            {% include 'historic/ajax/_filtervente.html.twig' %}
+        </div>
+
+        <div class="tablesMandat">
+            {% include 'historic/ajax/_filtermandat.html.twig' %}
+        </div>
+
+
     </div>
-
-    <div class="tables">
-        {% include 'historic/ajax/_filtervente.html.twig' %}
-        {% include 'historic/ajax/_filtermandat.html.twig' %}
-    </div>
-
-
-
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
     <script type="text/javascript">

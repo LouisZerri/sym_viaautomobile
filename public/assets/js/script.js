@@ -3,6 +3,17 @@ $(document).ready(function() {
     $('select[name="monselect"]').change(function () {
         var id = "ma_table_" + $(this).val();
         $('table').hide();
+
+        if(id === "ma_table_Mandats")
+        {
+            $(".tablesVente").hide()
+        }
+
+        if(id != 'ma_table_Mandats')
+        {
+            $(".tablesVente").show()
+        }
+
         $('#' + id).show();
     });
 
