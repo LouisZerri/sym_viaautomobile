@@ -1,4 +1,4 @@
-/* Responsive Iphones */
+/* Responsive sur mobile */
 
 @media only screen
 and (min-device-width: 320px)
@@ -110,7 +110,7 @@ and (orientation: portrait) {
         margin-bottom: 370px;
     }
 
-    .edit-card
+    .new-cards, .edit-card
     {
         margin-top: 300px;
         width: 600px;
@@ -127,6 +127,21 @@ and (orientation: portrait) {
         zoom: 250%;
         text-align: center;
         margin-top: 50px;
+    }
+
+    .table-admin-mandat
+    {
+        padding-top: 100px;
+    }
+
+    .app-challenges, .edit-title, .new-title, .miscellaneous
+    {
+        zoom: 200%;
+    }
+
+    .mobile-nav
+    {
+        zoom: 200%;
     }
 
 
