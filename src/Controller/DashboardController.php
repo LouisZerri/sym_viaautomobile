@@ -279,9 +279,9 @@ class DashboardController extends AbstractController
     public function index(Request $request, WeekFormat $weekFormat)
     {
         $retour = $weekFormat->weekToString(date('Y'), (date('W') - 1));
-
+        date_default_timezone_set('Europe/Paris');
         //Remet les mandats et les ventes à 0 tous les premiers du mois
-        if(date("j") == 1 && date("H:i") == '00:00')
+        if(date("j") == '01' && date("H:i") == '00:00')
         {
             $mandats = $this->mandatRepository
                         ->findAll();

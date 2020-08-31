@@ -69,6 +69,7 @@ class HistoricController extends AbstractController
     public function index(WeekFormat $weekFormat)
     {
         $retour = $weekFormat->weekToString(date('Y'), (date('W') - 1));
+        date_default_timezone_set('Europe/Paris');
 
         $user = $this->getUser();
 

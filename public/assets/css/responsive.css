@@ -160,6 +160,16 @@ and (-webkit-min-device-pixel-ratio: 1) {
         margin-left: 50px;
     }
 
+    #ma_table_Ventes
+    {
+        padding-left: 250px;
+    }
+
+    #ma_table_Mandats
+    {
+        padding-left: 450px;
+    }
+
 
 }
 

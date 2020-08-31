@@ -11,6 +11,12 @@ html, body
     -webkit-background-size: cover;
     background-size: cover;
     overflow-x: hidden;
+    position: absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+
 }
 
 .logo_blanc
@@ -326,8 +332,6 @@ a
     left:0;
     top: 0;
     right:0;
-    margin: auto;
-    margin-left: 100px;
     padding-top: 20px;
     zoom: 125%;
 }
@@ -399,6 +403,11 @@ td > i, td > a > i
 #ma_table_Ventes, #ma_table_Mandats
 {
     display: none;
+}
+
+.tablesVente, .tablesMandat
+{
+    padding-right: 100px;
 }
 
 /* Edit compte */

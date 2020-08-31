@@ -1,0 +1,119 @@
+/* Ipads */
+
+/* Portrait */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: portrait)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+
+    .card {
+        position: absolute;
+        width: 70%;
+        height: 50%;
+        top:0;
+        bottom:0;
+        left:0;
+        right: 0;
+        margin: auto;
+        border-radius: 15px;
+        zoom: 150%;
+    }
+
+    .creation_compte
+    {
+        position: absolute;
+        width: 70%;
+        height: 750px;
+        top: 0;
+        font-size: 12px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border-radius: 15px;
+    }
+
+    .dashboard-hr
+    {
+        display: none;
+    }
+
+    .new-cards, .edit-card
+    {
+        width: 600px;
+        height: 600px;
+    }
+
+    .edit-card-body
+    {
+        width: 600px;
+    }
+
+}
+
+/* Landscape */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: landscape)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+    .security_card, .accueil {
+        position: absolute;
+        width: 70%;
+        height: 80%;
+        top:0;
+        bottom:0;
+        left:0;
+        right: 0;
+        margin: auto;
+        border-radius: 15px;
+        zoom: 150%;
+    }
+
+    .creation_compte
+    {
+        position: absolute;
+        width: 60%;
+        height: 750px;
+        padding-bottom: 40px;
+        top: 0;
+        font-size: 12px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border-radius: 15px;
+    }
+
+    .dashboard-hr
+    {
+       margin-left: 375px;
+    }
+
+
+    .new-cards, .edit-card
+    {
+        width: 925px;
+        height: 550px;
+    }
+
+    .edit-card-body
+    {
+        width: 900px;
+    }
+
+}
+
+@media
+(min-device-width: 800px)
+and (max-device-width: 1280px) {
+
+    .dashboard-hr
+    {
+        margin-left: 450px;
+    }
+
+}

@@ -19,6 +19,15 @@ class ChallengeRepository extends ServiceEntityRepository
         parent::__construct($registry, Challenge::class);
     }
 
+    public function getAllChallengeByDesc()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // /**
     //  * @return Challenge[] Returns an array of Challenge objects

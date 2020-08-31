@@ -299,7 +299,7 @@ class AdminController extends AbstractController
     public function viewChallenge()
     {
         $challenges = $this->challengeRepository
-            ->findAll();
+            ->getAllChallengeByDesc();
 
         return $this->render('admin/challenges/challenge.html.twig', [
             'challenges' => $challenges
