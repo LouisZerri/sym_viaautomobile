@@ -17,4 +17,5 @@ return [
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     Egyg33k\CsvBundle\Egyg33kCsvBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];

@@ -28,42 +28,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <button id="js-add" type="submit" class="btn btn-light light-button mb-2">Enregistrer</button>
+            <button id="js-add-divers" type="submit" class="btn btn-light light-button mb-2">Enregistrer</button>
         </form>
     </div>
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-
-            $('#js-add').click(function (e){
-                e.preventDefault();
-
-                var mandat = $('input[name="mandat"]').val();
-                var vente = $('input[name="vente"]').val();
-                var collaborateur = $('select[name="name"]').val();
-
-                jQuery.ajax({
-                    url: '{{ path('admin-miscellaneous-add') }}',
-                    type: 'POST',
-                    data: {
-                        mandat: mandat,
-                        vente: vente,
-                        name: collaborateur
-                    },
-                    success: function (data) {
-                        toastr.success("Données à jour")
-                    },
-                    error: function (jqxhr) {
-                        alert(jqxhr.responseText);
-                    }
-                });
-
-            });
-
-
-        });
-    </script>
-
 {% endblock %}

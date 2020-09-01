@@ -7,16 +7,6 @@
     {{ form_row(form.site_rattachement, {'attr': {'placeholder': 'Site de rattachement', 'class': 'pb-2'}}) }}
     {{ form_row(form.email, {'attr': {'placeholder': 'Adresse email', 'class': 'pb-2'}}) }}
     {{ form_row(form.password, {'attr': {'placeholder': 'Choissisez un mot de passe', 'class': 'pb-2'}}) }}
-    <i id="popup" style="position: absolute; right: 5%; bottom: 25%; font-size: 15px; cursor: pointer;"
-       class="fa fa-info-circle"
-       aria-hidden="true"
-       data-container="body"
-       data-toggle="popover"
-       data-placement="right"
-       data-html="true"
-       data-title="Caractéristiques du mot de passe"
-       data-content="<ul class='mypopover'><li>Une majuscule</li><li>Une minuscule</li><li>Un chiffre</li><li>Un caractère spécial</li><li>Minimum 9 caractères</li></ul>">
-    </i>
     {{ form_row(form.confirm_password, {'attr': {'placeholder': 'Confirmez votre mot de passe'}}) }}
     <button id="security_button" type="submit" class="btn btn-light"><span style="color: white;">Inscription</span></button>
 {{ form_end(form) }}
