@@ -4,7 +4,7 @@
 
     <img class="logo_blanc" src="{{ asset('assets/images/logo_blanc.svg') }}" alt="logo" width="250" height="250">
 
-    {% if challenge.imageAccueil %}
+    {% if challenge.imageAccueil is defined %}
         <style>
             html, body
             {
@@ -14,6 +14,7 @@
             }
         </style>
     {% endif %}
+
 
     <div class="card accueil">
         <div class="card-body">

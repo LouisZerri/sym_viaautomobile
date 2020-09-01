@@ -89,6 +89,11 @@ class DashboardController extends AbstractController
         $challenge = $this->challengeRepository
             ->findOneBy(['en_cours' => '1']);
 
+        if($challenge->getImageAccueil() == null)
+        {
+            $challenge->setImageAccueil("fond.png");
+        }
+
         return $this->render('pages/accueil.html.twig', [
             'challenge' => $challenge
         ]);
