@@ -1,6 +1,6 @@
 let sidebarIsOpened = false;
 
-$('.sidebar').click((e) => {
+$('.sidebar').mouseover((e) => {
     e.stopPropagation()
     e.preventDefault()
     document.body.classList.add('has-sidebar');
@@ -9,6 +9,13 @@ $('.sidebar').click((e) => {
 })
 
 $('body').click(() => {
+    if(sidebarIsOpened)
+    {
+        document.body.classList.remove('has-sidebar');
+    }
+})
+
+$('.menu').mouseleave((e) => {
     if(sidebarIsOpened)
     {
         document.body.classList.remove('has-sidebar');
